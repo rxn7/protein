@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"pn.h": "c",
+		"pn_common.h": "c"
+	}
+}
