@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"pn.h": "c",
-		"pn_common.h": "c"
+		"pn_common.h": "c",
+		"pn_core_init.h": "c",
+		"stdbool.h": "c"
 	}
 }

@@ -1,6 +1,6 @@
 HDRS = -I include -I src
 SRCS = -c src/*.c -c src/core/*.c
-OBJS = pn.o pn_core_variables.o 
+OBJS = pn.o pn_core_variables.o pn_core_init.o
 LIBS = -lGLEW -lglfw
 all: compile output clean
 
