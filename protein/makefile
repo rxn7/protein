@@ -1,7 +1,12 @@
 HDRS = -I include -I src
-SRCS = -c src/*.c -c src/core/*.c
-OBJS = pn.o pn_core_variables.o pn_core_init.o
+
+SRCS = -c src/*.c -c src/core/*.c -c src/core/callbacks/*.c
+
+OBJS =  pn.o pn_core_variables.o pn_core_init.o \
+		pn_log.o pn_core_glfw_callbacks.o pn_window.o
+
 LIBS = -lGLEW -lglfw
+
 all: compile output clean
 
 compile:
