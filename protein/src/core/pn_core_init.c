@@ -1,11 +1,10 @@
-#include "pn_core/pn_core_init.h"
+#include "core/pn_core_init.h"
 
-#include "pn/pn.h"
+#include "pn.h"
 
-#include "pn_core/pn_core_variables.h"
-#include "pn_core/callbacks/pn_core_glfw_callbacks.h"
+#include "core/pn_core_variables.h"
+#include "core/callbacks/pn_core_glfw_callbacks.h"
 
-#include  <stdio.h>
 
 bool __pn_core_preinit() {
 	if(__pre_inited) return true;
@@ -20,9 +19,12 @@ bool __pn_core_preinit() {
 	}
 	
 	// GLFW Window hints.
+	glfwDefaultWindowHints();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
 
 	__pre_inited = true;
 
@@ -52,7 +54,13 @@ bool __pn_core_postinit() {
 	}
 
 	// Setting up the OpenGL.
-	glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_STENCIL_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	glfwShowWindow(__window_instance->m_glfw_window);
 
 	return true;
 }

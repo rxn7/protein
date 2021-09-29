@@ -1,9 +1,6 @@
 #pragma once
 
-#include "pn/pn_common.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "pn_common.h"
 
 /*
 	This structs holds window data.

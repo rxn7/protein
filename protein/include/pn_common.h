@@ -1,9 +1,15 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 
-#include "pn/pn_log.h"
+#include <cglm/cglm.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include "pn_log.h"
 
 typedef uint64_t u64;
 typedef uint32_t u32;

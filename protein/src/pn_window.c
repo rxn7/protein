@@ -1,8 +1,8 @@
+#include "pn_window.h"
+#include "core/pn_core_variables.h"
+#include "core/pn_core_init.h"
 
-#include "stdlib.h"
-#include "pn/pn_window.h"
-#include "pn_core/pn_core_variables.h"
-#include "pn_core/pn_core_init.h"
+#include <stdlib.h>
 
 pn_window_t* pn_create_window(char* title, u32 width, u32 height) {
 	pn_window_t* window = malloc(sizeof(pn_window_t));
@@ -24,8 +24,8 @@ pn_window_t* pn_create_window(char* title, u32 width, u32 height) {
 }
 
 void pn_set_window_title(char* title) {
-	if(__window_instance == NULL){
-		pn_log("Failed to set window title: the window instance is null!");
+	if(__window_instance == 0){
+		pn_log("Failed to set window title: the window instance is 0!");
 		__should_run = false; // We shouldn't continue the program if the window instance doesnt exist.
 		return;
 	}

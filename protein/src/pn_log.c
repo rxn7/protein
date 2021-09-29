@@ -1,4 +1,4 @@
-#include "pn/pn_log.h"
+#include "pn_log.h"
 #include <stdarg.h>
 #include <stdio.h>
 

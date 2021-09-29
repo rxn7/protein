@@ -10,7 +10,7 @@ int main(int argc, const char* argv[]){
 	while(pn_should_run()){
 		pn_start_frame();
 
-		pn_set_window_size(rand() % 1000, rand() % 1000);
+		if(pn_is_key_pressed(PN_KEY_SPACE)) { }
 
 		pn_end_frame();
 	}

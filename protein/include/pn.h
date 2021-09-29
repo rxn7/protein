@@ -1,9 +1,9 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "pn_color.h"
 #include "pn_window.h"
 #include "pn_common.h"
+#include "pn_input.h"
 
 /*
 	This function should be called at the beginning of the program to initialize the Protein library.
@@ -39,4 +39,5 @@ void pn_start_frame();
 */
 void pn_end_frame();
 
-void pn_draw_rect(f32 x, f32 y, f32 w, f32 h);
+
+void pn_set_clear_color(pn_color_t color);

@@ -1,7 +1,6 @@
 #pragma once
 
-#include "pn/pn.h"
-#include <stdbool.h>
+#include "pn.h"
 
 extern pn_window_t* __window_instance;
 extern bool __pre_inited;
