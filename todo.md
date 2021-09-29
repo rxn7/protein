@@ -1,8 +1,7 @@
 # TODO
 
 ## Working On
-* Input system.
-    * pn_is_key_just_pressed function.
+* Project restructure
 
 ## For Later
 * 3D Perspective.
@@ -10,3 +9,6 @@
 * Model loading and rendering.
 * Texture loading and rendering.
 * Shader support.
+
+# Done
+* Input system - needs polishing

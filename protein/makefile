@@ -1,10 +1,16 @@
 HDRS = -I include -I src
 
-SRCS = -c src/*.c -c src/core/*.c -c src/core/callbacks/*.c
+SRCS = -c src/*.c
 
-OBJS =  pn.o pn_core_variables.o pn_core_init.o \
-		pn_log.o pn_core_glfw_callbacks.o pn_window.o \
-		pn_input.o
+OBJS =  pn.o \
+		pn_window.o \
+		pn_vars.o \
+		pn_log.o \
+		pn_input.o \
+		pn_init.o \
+		pn_camera.o \
+		pn_callbacks.o \
+		pn_math.o
 
 LIBS = -lGLEW -lglfw
 

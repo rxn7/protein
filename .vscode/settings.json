@@ -13,6 +13,9 @@
 		"pn_log.h": "c",
 		"glm.hpp": "c",
 		"pn_input.h": "c",
-		"pn_core_common.h": "c"
+		"pn_core_common.h": "c",
+		"pn_camera.h": "c",
+		"pn_color.h": "c",
+		"pn_math.h": "c"
 	}
 }

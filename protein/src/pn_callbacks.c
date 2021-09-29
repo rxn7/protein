@@ -1,4 +1,4 @@
-#include "core/callbacks/pn_core_glfw_callbacks.h"
+#include "pn_callbacks.h"
 
 
 void __pn_core_glfw_error_callback(int error, const char* desc) {

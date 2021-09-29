@@ -1,15 +1,11 @@
 #pragma once
 
+#include "pn_camera.h"
 #include "pn_color.h"
 #include "pn_window.h"
 #include "pn_common.h"
 #include "pn_input.h"
-
-/*
-	This function should be called at the beginning of the program to initialize the Protein library.
-*/
-bool pn_init();
-
+#include "pn_init.h"
 
 /*
 	This function should be used to check if the main loop should continue.

@@ -1,13 +1,19 @@
-#include "core/pn_core_init.h"
-
 #include "pn.h"
 
-#include "core/pn_core_variables.h"
-#include "core/callbacks/pn_core_glfw_callbacks.h"
+#include "pn_init.h"
+#include "pn_vars.h"
+#include "pn_callbacks.h"
 
+bool pn_init() {
+	if(!pn_preinit()) return false;
 
-bool __pn_core_preinit() {
-	if(__pre_inited) return true;
+	__pn_should_run = true;
+
+	return true;
+}
+
+bool pn_preinit() {
+	if(__pn_pre_inited) return true;
 
 	// Connect the GLFW callbacks.
 	glfwSetErrorCallback(__pn_core_glfw_error_callback);
@@ -26,30 +32,30 @@ bool __pn_core_preinit() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
 
-	__pre_inited = true;
+	__pn_pre_inited = true;
 
 	return true;
 }
 
-bool __pn_core_postinit() {
+bool pn_postinit() {
 	// Check if the window instance exists.
-	if(__window_instance == NULL){
+	if(__pn_window_instance == NULL){
 		pn_log("Failed to post init: Window Instance is NULL!\n");
-		__should_run = false;
+		__pn_should_run = false;
 		return false;
 
 	}
 	
-	glfwSetKeyCallback(__window_instance->m_glfw_window, __pn_core_glfw_key_callback);
+	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, __pn_core_glfw_key_callback);
 
 	// Make the context current for the window instance.
-	glfwMakeContextCurrent(__window_instance->m_glfw_window);
+	glfwMakeContextCurrent(__pn_window_instance->m_glfw_window);
 
 	// Initialize the GLEW.
 	int glew_result = glewInit();
 	if(glew_result != GLEW_OK) {
 		pn_log("Failed to initialize GLEW: %s\n", glewGetErrorString(glew_result));
-		__should_run = false;
+		__pn_should_run = false;
 		return false;
 	}
 
@@ -60,7 +66,7 @@ bool __pn_core_postinit() {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	glfwShowWindow(__window_instance->m_glfw_window);
+	glfwShowWindow(__pn_window_instance->m_glfw_window);
 
 	return true;
 }

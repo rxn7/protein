@@ -1,26 +1,18 @@
 #include "pn.h"
 #include "pn_common.h"
 
-#include "core/pn_core_variables.h"
-#include "core/pn_core_init.h"
+#include "pn_vars.h"
+#include "pn_init.h"
 
 #include <stdlib.h>
 #include <GL/glew.h>
 
-bool pn_init() {
-	if(!__pn_core_preinit()) return false;
-
-	__should_run = true;
-
-	return true;
-}
-
 bool pn_should_run() { 
-	return __should_run && !glfwWindowShouldClose(__window_instance->m_glfw_window);
+	return __pn_should_run && !glfwWindowShouldClose(__pn_window_instance->m_glfw_window);
 }
 
 void pn_exit() {
-	pn_free_window(__window_instance);
+	pn_free_window(__pn_window_instance);
 	glfwTerminate();    
 }
 
@@ -30,7 +22,7 @@ void pn_start_frame() {
 }
 
 void pn_end_frame() {
-	glfwSwapBuffers(__window_instance->m_glfw_window);
+	glfwSwapBuffers(__pn_window_instance->m_glfw_window);
 }
 
 void pn_set_clear_color(pn_color_t color){
