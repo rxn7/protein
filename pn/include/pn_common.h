@@ -23,6 +23,3 @@ typedef int8_t   i8;
 typedef float f32;
 typedef double f64;
 typedef long double f96;
-
-#include "pn_log.h"
-#include "pn_math.h"

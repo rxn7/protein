@@ -1,4 +1,4 @@
-cd protein
+cd pn
 make
 
 sudo cp ./bin/linux/libprotein.so /usr/lib -r

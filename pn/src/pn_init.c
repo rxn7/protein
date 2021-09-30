@@ -16,13 +16,15 @@ bool pn_preinit() {
 	if(__pn_pre_inited) return true;
 
 	// Connect the GLFW callbacks.
-	glfwSetErrorCallback(__pn_core_glfw_error_callback);
+	glfwSetErrorCallback(pn_glfw_error_callback);
 
 	// Initialize the GLFW.
 	if(glfwInit() != GLFW_TRUE) {
-		pn_log("Failed to initialize GLFW!\n");
+		pn_log("Failed to initialize GLFW!");
 		return false;
 	}
+
+	pn_log("Successfully initialized GLFW!");
 	
 	// GLFW Window hints.
 	glfwDefaultWindowHints();
@@ -39,14 +41,14 @@ bool pn_preinit() {
 
 bool pn_postinit() {
 	// Check if the window instance exists.
-	if(__pn_window_instance == NULL){
-		pn_log("Failed to post init: Window Instance is NULL!\n");
+	if(!__pn_window_instance){
+		pn_log("Failed to post init: Window Instance is 0!");
+		
 		__pn_should_run = false;
 		return false;
-
 	}
 	
-	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, __pn_core_glfw_key_callback);
+	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, pn_glfw_key_callback);
 
 	// Make the context current for the window instance.
 	glfwMakeContextCurrent(__pn_window_instance->m_glfw_window);
@@ -54,7 +56,7 @@ bool pn_postinit() {
 	// Initialize the GLEW.
 	int glew_result = glewInit();
 	if(glew_result != GLEW_OK) {
-		pn_log("Failed to initialize GLEW: %s\n", glewGetErrorString(glew_result));
+		pn_log("Failed to initialize GLEW: %s", glewGetErrorString(glew_result));
 		__pn_should_run = false;
 		return false;
 	}
@@ -67,6 +69,8 @@ bool pn_postinit() {
 	glCullFace(GL_BACK);
 
 	glfwShowWindow(__pn_window_instance->m_glfw_window);
+
+	pn_log("Successfully finished post-init!");
 
 	return true;
 }

@@ -10,12 +10,9 @@ int main(int argc, const char* argv[]){
 	while(pn_should_run()){
 		pn_start_frame();
 
-		if(pn_is_key_pressed(PN_KEY_SPACE)) { }
-
 		pn_end_frame();
 	}
 
-	// pn_free_window(window); You don't have to call it because pn_exit frees the window instance for you.
 	pn_exit();
 
 	return 0;
