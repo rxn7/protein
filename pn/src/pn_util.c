@@ -9,7 +9,7 @@ void pn_read_file(char** buff, const char* path) {
 	FILE* file = fopen(path, "r");
 
 	if(!file){
-		pn_log("Failed to read file %s!", path);
+		pn_error("Failed to read file %s!", path);
 		return;
 	}
 
@@ -20,14 +20,14 @@ void pn_read_file(char** buff, const char* path) {
 	*buff = calloc(1, length+1);
 	if(!*buff) {
 		fclose(file);
-		pn_log("Failed to allocate buffer for file %s!", path);
+		pn_error("Failed to allocate buffer for file %s!", path);
 		return;
 	}
 
 	if(fread(*buff, length, 1, file) != 1) {
 		fclose(file);
 		free(*buff);
-		pn_log("Failed to read file %s!", path);
+		pn_error("Failed to read file %s!", path);
 		return;
 	}
 

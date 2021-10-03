@@ -15,17 +15,20 @@ pn_camera_t* pn_create_camera(vec3 pos, float fov, float znear, float zfar) {
 	vec3 up = {0, 1, 0};
 	glm_vec3_copy(up, camera->m_up);
 
-	f32 aspect = (f32)__pn_window_instance->m_width / (f32)__pn_window_instance->m_height;
-
-	glm_perspective(fov, aspect, znear, zfar, camera->m_perspective);
-
 	return camera;
 }
 
-void pn_calculate_view_projection(mat4 dest) {
-	vec3 direction;
-	glm_vec3_add(__pn_cam_instance->m_pos, __pn_cam_instance->m_forward, direction);
-	glm_lookat(__pn_cam_instance->m_pos, direction, __pn_cam_instance->m_up, dest);
+void pn_camera_update() {
+	f32 aspect = (f32)__pn_window_instance->m_width / (f32)__pn_window_instance->m_height;
+	glm_perspective(glm_rad(45.0f), aspect, 0.1f, 100.0f, __pn_cam_instance->m_projection);
+
+	glm_mat4_identity(__pn_cam_instance->m_view);
+	
+	vec3 lookdir;
+	glm_vec3_add(__pn_cam_instance->m_pos, __pn_cam_instance->m_forward, lookdir);
+
+	// glm_translate(__pn_cam_instance->m_view, __pn_cam_instance->m_pos);
+	glm_lookat(__pn_cam_instance->m_pos, lookdir, __pn_cam_instance->m_up, __pn_cam_instance->m_view);
 }
 
 void pn_free_camera(pn_camera_t* camera) {

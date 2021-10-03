@@ -13,7 +13,7 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	glGetShaderiv(program->m_vert_shader, GL_COMPILE_STATUS, &success);
 	if(!success) {
 		glGetShaderInfoLog(program->m_vert_shader, 512, NULL, info_log);
-		pn_log("Failed to compile vertex shader: %s", info_log);
+		pn_error("Failed to compile vertex shader: %s", info_log);
 	}
 
 	program->m_frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -23,7 +23,7 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	glGetShaderiv(program->m_frag_shader, GL_COMPILE_STATUS, &success);
 	if(!success) {
 		glGetShaderInfoLog(program->m_frag_shader, 512, NULL, info_log);
-		pn_log("Failed to compile fragment shader: %s", info_log);
+		pn_error("Failed to compile fragment shader: %s", info_log);
 	}
 
 	program->m_id = glCreateProgram();
@@ -34,17 +34,19 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	glGetProgramiv(program->m_id, GL_LINK_STATUS, &success);
 	if(!success) {
 		glGetProgramInfoLog(program->m_id, 512, NULL, info_log);
-		pn_log("Failed to link shader program: %s", info_log);
+		pn_error("Failed to link shader program: %s", info_log);
 	}
 
 	glValidateProgram(program->m_id);
 	glGetProgramiv(program->m_id, GL_VALIDATE_STATUS, &success);
 	if(!success) {
 		glGetProgramInfoLog(program->m_id, 512, NULL, info_log);
-		pn_log("Failed to validate shader program: %s", info_log);
+		pn_error("Failed to validate shader program: %s", info_log);
 	}
 
 	program->m_uniforms[UNI_MODEL] = glGetUniformLocation(program->m_id, "u_model");
+	program->m_uniforms[UNI_VIEW] = glGetUniformLocation(program->m_id, "u_view");
+	program->m_uniforms[UNI_PROJECTION] = glGetUniformLocation(program->m_id, "u_projection");
 
 	glDeleteShader(program->m_vert_shader);
 	glDeleteShader(program->m_frag_shader);
@@ -56,7 +58,7 @@ void pn_bind_shader_program(pn_shader_program_t* program) {
 	if(program) {
 		glUseProgram(program->m_id);
 	}else {
-		pn_log("Failed to bind shader program! Shader program doesn't exist!");
+		pn_error("Failed to bind shader program! Shader program doesn't exist!");
 	}
 }
 
