@@ -1,5 +1,6 @@
 #include "pn_transform.h"
 #include "pn_log.h"
+#include "pn_vars.h"
 
 void pn_init_transform(pn_transform_t* transform) {
 	glm_vec3_one(transform->m_scale);

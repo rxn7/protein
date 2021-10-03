@@ -13,7 +13,7 @@ pn_window_t* pn_create_window(char* title, u32 width, u32 height) {
 	window->m_glfw_window = glfwCreateWindow(width, height, title, NULL, NULL);
 
 	if(window->m_glfw_window == NULL){
-		pn_log("Failed to create window!");	
+		pn_error("Failed to create window!");	
 		return NULL;
 	}
 
@@ -26,7 +26,7 @@ pn_window_t* pn_create_window(char* title, u32 width, u32 height) {
 
 void pn_set_window_title(char* title) {
 	if(__pn_window_instance == 0){
-		pn_log("Failed to set window title: the window instance is 0!");
+		pn_error("Failed to set window title: the window instance is 0!");
 		__pn_should_run = false; // We shouldn't continue the program if the window instance doesnt exist.
 		return;
 	}

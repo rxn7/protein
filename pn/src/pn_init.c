@@ -5,6 +5,7 @@
 #include "pn_log.h"
 #include "pn_math.h"
 #include "pn_camera.h"
+#include "pn_shader.h"
 #include <cglm/cglm.h>
 
 bool pn_init() {
@@ -23,7 +24,7 @@ bool pn_preinit() {
 
 	// Initialize the GLFW.
 	if(glfwInit() != GLFW_TRUE) {
-		pn_log("Failed to initialize GLFW!");
+		pn_error("Failed to initialize GLFW!");
 		return false;
 	}
 
@@ -44,7 +45,7 @@ bool pn_preinit() {
 bool pn_postinit() {
 	// Check if the window instance exists.
 	if(!__pn_window_instance){
-		pn_log("Failed to post init: Window Instance is 0!");
+		pn_error("Failed to post init: Window Instance is 0!");
 		
 		__pn_should_run = false;
 		return false;
@@ -58,22 +59,37 @@ bool pn_postinit() {
 	// Initialize the GLEW.
 	int glew_result = glewInit();
 	if(glew_result != GLEW_OK) {
-		pn_log("Failed to initialize GLEW: %s", glewGetErrorString(glew_result));
+		pn_error("Failed to initialize GLEW: %s", glewGetErrorString(glew_result));
 		__pn_should_run = false;
 		return false;
 	}
 
-	// Setting up the OpenGL.
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_STENCIL_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
-
+	// glEnable(GL_CULL_FACE);
+	// glCullFace(GL_FRONT);
 	pn_update_viewport();
 
 	vec3 pos = {0, 0, -3};
 	pn_create_camera(pos, 70, 0.01f, 1000.0f);
+
+	const char* default_vert_shader = 	"#version 330 core\n"
+										"layout (location = 0) in vec3 a_pos;\n"
+										"uniform mat4 u_model;\n"
+										"uniform mat4 u_view;\n"
+										"uniform mat4 u_projection;\n"
+										"void main() {\n"
+										"\tgl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0);\n"
+										"}";
+
+	const char* default_frag_shader =	"#version 330 core\n"
+										"out vec4 frag_color;\n"
+										"void main() {\n"
+										"\tfrag_color = vec4(1.0, 1.0, 0.0, 1.0);\n"
+										"}";
+
+	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
 
 	glfwShowWindow(__pn_window_instance->m_glfw_window);
 

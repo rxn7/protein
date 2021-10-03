@@ -1,4 +1,5 @@
 #include "pn_render.h"
+#include "pn_vars.h"
 
 pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_count) {
 	pn_render_object_t* render_object = malloc(sizeof(pn_render_object_t));
@@ -22,11 +23,16 @@ pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_co
 }
 
 void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program) {
+	if(!shader_program) shader_program = __pn_default_shader_program;
+
 	pn_bind_shader_program(shader_program);
 
 	mat4 model;
 	pn_calculate_transform_model(&render_object->m_transform, model);
+
 	glUniformMatrix4fv(shader_program->m_uniforms[UNI_MODEL], 1, GL_FALSE, (float*)model);
+	glUniformMatrix4fv(shader_program->m_uniforms[UNI_VIEW], 1, GL_FALSE, (float*)__pn_cam_instance->m_view);
+	glUniformMatrix4fv(shader_program->m_uniforms[UNI_PROJECTION], 1, GL_FALSE, (float*)__pn_cam_instance->m_projection);
 	
 	glBindVertexArray(render_object->m_vao);
 		glDrawArrays(GL_TRIANGLES, 0, render_object->m_vertex_count);
