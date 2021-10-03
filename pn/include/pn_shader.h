@@ -6,6 +6,7 @@ enum {
 	UNI_MODEL,
 	UNI_VIEW,
 	UNI_PROJECTION,
+	UNI_COLOR,
 	UNI_COUNT,
 };
 

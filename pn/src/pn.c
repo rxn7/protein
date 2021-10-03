@@ -20,6 +20,7 @@ void pn_start_frame() {
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// Calculate the delta time.
 	float current_frame = glfwGetTime();
 	__pn_delta_time = current_frame - __pn_last_frame;
 	__pn_last_frame = current_frame;
