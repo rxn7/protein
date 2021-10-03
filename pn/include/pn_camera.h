@@ -1,9 +1,16 @@
 #pragma once
 
-#include "pn_common.h"
+#include <cglm/cglm.h>
 
 typedef struct {
-	mat4 m_proj_mat;
+	mat4 m_perspective;
+	vec3 m_pos;
+	vec3 m_forward;
+	vec3 m_up;
 } pn_camera_t;
 
-void pn_calc_cam_perspective(f32 fov, f32 znear, f32 zfar, pn_camera_t* cam);
+pn_camera_t* pn_create_camera(vec3 pos, float fov, float znear, float zfar);
+
+void pn_calculate_view_projection(mat4 dest);
+
+void pn_free_camera(pn_camera_t* camera);

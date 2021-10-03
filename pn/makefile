@@ -8,11 +8,15 @@ OBJS =  pn.o \
 		pn_log.o \
 		pn_input.o \
 		pn_init.o \
-		pn_camera.o \
 		pn_callbacks.o \
-		pn_math.o
+		pn_math.o \
+		pn_util.o \
+		pn_render.o \
+		pn_shader.o  \
+		pn_camera.o \
+		pn_transform.o 
 
-LIBS = -lGLEW -lglfw
+LIBS = -lGLEW -lglfw -lGLU
 
 all: compile output clean
 

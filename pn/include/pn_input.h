@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pn.h"
+#include <stdbool.h>
 
 typedef int pn_key_t;
 

@@ -1,14 +1,14 @@
 # TODO
 
 ## Working On
-* Project restructure
 
 ## For Later
 * 3D Perspective.
 * Basic camera system.
-* Model loading and rendering.
-* Texture loading and rendering.
-* Shader support.
+* Rendering system
+* Texture loading.
+* Remove pn.h references in header files, instead include only what it needs.
 
 # Done
 * Input system - needs polishing
+* Project restructure

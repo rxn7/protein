@@ -1,2 +1,2 @@
 all:
-	gcc main.c -o sandbox -lprotein
+	gcc main.c -o sandbox -lprotein -lm

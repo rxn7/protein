@@ -1,8 +1,11 @@
-#include "pn.h"
-
 #include "pn_init.h"
 #include "pn_vars.h"
 #include "pn_callbacks.h"
+#include "pn_common.h"
+#include "pn_log.h"
+#include "pn_math.h"
+#include "pn_camera.h"
+#include <cglm/cglm.h>
 
 bool pn_init() {
 	if(!pn_preinit()) return false;
@@ -31,7 +34,6 @@ bool pn_preinit() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
 
 	__pn_pre_inited = true;
@@ -66,7 +68,12 @@ bool pn_postinit() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_STENCIL_TEST);
 	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	glCullFace(GL_FRONT);
+
+	pn_update_viewport();
+
+	vec3 pos = {0, 0, -3};
+	pn_create_camera(pos, 70, 0.01f, 1000.0f);
 
 	glfwShowWindow(__pn_window_instance->m_glfw_window);
 

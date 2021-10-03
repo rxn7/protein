@@ -5,3 +5,4 @@
 
 f64 pn_deg2rad(f64 deg);
 f64 pn_rad2deg(f64 rad);
+void pn_gl_perspective(f64 fov, f64 aspect, f64 znear, f64 zfar);

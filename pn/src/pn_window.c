@@ -1,6 +1,7 @@
 #include "pn_window.h"
 #include "pn_vars.h"
 #include "pn_init.h"
+#include "pn_log.h"
 
 #include <stdlib.h>
 
@@ -42,6 +43,14 @@ void pn_set_window_size(int width, int height) {
 	__pn_window_instance->m_height = height;
 
 	glfwSetWindowSize(__pn_window_instance->m_glfw_window, width, height);
+}
+
+void pn_update_viewport() {
+	int w = __pn_window_instance->m_width;
+	int h = __pn_window_instance->m_height;
+	f32 aspect = (f32)w / (f32)h;
+
+	glViewport(0, 0, w, h);
 }
 
 void pn_free_window(pn_window_t* window) {

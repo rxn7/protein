@@ -1,5 +1,5 @@
 #pragma once
-#include "pn.h"
+#include <stdbool.h>
 
 bool pn_init();
 bool pn_preinit();
