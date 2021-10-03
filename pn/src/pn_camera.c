@@ -19,16 +19,16 @@ pn_camera_t* pn_create_camera(vec3 pos, float fov, float znear, float zfar) {
 }
 
 void pn_camera_update() {
+	// Calulate the projection matrix.
 	f32 aspect = (f32)__pn_window_instance->m_width / (f32)__pn_window_instance->m_height;
-	glm_perspective(glm_rad(45.0f), aspect, 0.1f, 100.0f, __pn_cam_instance->m_projection);
+	glm_perspective(glm_rad(90.0f), aspect, 0.1f, 100.0f, __pn_cam_instance->m_projection);
 
+	// Calculate the look direction.	
+	vec3 look_dir; glm_vec3_add(__pn_cam_instance->m_pos, __pn_cam_instance->m_forward, look_dir);
+
+	// Calculate the view matrix.
 	glm_mat4_identity(__pn_cam_instance->m_view);
-	
-	vec3 lookdir;
-	glm_vec3_add(__pn_cam_instance->m_pos, __pn_cam_instance->m_forward, lookdir);
-
-	// glm_translate(__pn_cam_instance->m_view, __pn_cam_instance->m_pos);
-	glm_lookat(__pn_cam_instance->m_pos, lookdir, __pn_cam_instance->m_up, __pn_cam_instance->m_view);
+	glm_lookat(__pn_cam_instance->m_pos, look_dir, __pn_cam_instance->m_up, __pn_cam_instance->m_view);
 }
 
 void pn_free_camera(pn_camera_t* camera) {

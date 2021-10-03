@@ -19,7 +19,6 @@ bool pn_init() {
 bool pn_preinit() {
 	if(__pn_pre_inited) return true;
 
-	// Connect the GLFW callbacks.
 	glfwSetErrorCallback(pn_glfw_error_callback);
 
 	// Initialize the GLFW.
@@ -50,7 +49,9 @@ bool pn_postinit() {
 		__pn_should_run = false;
 		return false;
 	}
-	
+
+	// Set the GLFW Callbacks.
+	glfwSetFramebufferSizeCallback(__pn_window_instance->m_glfw_window, pn_glfw_resize_callback);
 	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, pn_glfw_key_callback);
 
 	// Make the context current for the window instance.
@@ -64,16 +65,18 @@ bool pn_postinit() {
 		return false;
 	}
 
+	// OpenGL Settings.
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_STENCIL_TEST);
+	// glEnable(GL_STENCIL_TEST);
 	// glEnable(GL_CULL_FACE);
 	// glCullFace(GL_FRONT);
+
 	pn_update_viewport();
 
-	vec3 pos = {0, 0, -3};
-	pn_create_camera(pos, 70, 0.01f, 1000.0f);
+	pn_create_camera((vec3){0, 0, -3.f}, 70, 0.01f, 1000.0f);
 
+	// Create the default shader.
 	const char* default_vert_shader = 	"#version 330 core\n"
 										"layout (location = 0) in vec3 a_pos;\n"
 										"uniform mat4 u_model;\n"
@@ -91,6 +94,7 @@ bool pn_postinit() {
 
 	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
 
+	// Everything's initialized. Now we can show the window.
 	glfwShowWindow(__pn_window_instance->m_glfw_window);
 
 	pn_log("Successfully finished post-init!");
