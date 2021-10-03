@@ -49,6 +49,7 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	program->m_uniforms[UNI_MODEL] = glGetUniformLocation(program->m_id, "u_model");
 	program->m_uniforms[UNI_VIEW] = glGetUniformLocation(program->m_id, "u_view");
 	program->m_uniforms[UNI_PROJECTION] = glGetUniformLocation(program->m_id, "u_projection");
+	program->m_uniforms[UNI_COLOR] = glGetUniformLocation(program->m_id, "u_color");
 
 	// Delete the shaders.
 	glDeleteShader(program->m_vert_shader);

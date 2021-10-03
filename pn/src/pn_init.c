@@ -87,9 +87,10 @@ bool pn_postinit() {
 										"}";
 
 	const char* default_frag_shader =	"#version 330 core\n"
+										"uniform vec4 u_color;\n"
 										"out vec4 frag_color;\n"
 										"void main() {\n"
-										"\tfrag_color = vec4(1.0, 1.0, 0.0, 1.0);\n"
+										"\tfrag_color = u_color;\n"
 										"}";
 
 	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);

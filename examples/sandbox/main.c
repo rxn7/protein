@@ -8,45 +8,11 @@ int main(int argc, const char* argv[]){
 
 	pn_window_t* window = pn_create_window("Protein", 800, 640);
 
-	pn_vertex_t vertices[] = { 
-		{{-1.0f,-1.0f,-1.0f, }},
-		{{-1.0f,-1.0f, 1.0f,}},
-		{{-1.0f, 1.0f, 1.0f,}},
-		{{1.0f, 1.0f,-1.0f,}},
-		{{-1.0f,-1.0f,-1.0f,}},
-		{{-1.0f, 1.0f,-1.0f,}},
-		{{1.0f,-1.0f, 1.0f,}},
-		{{-1.0f,-1.0f,-1.0f,}},
-		{{1.0f,-1.0f,-1.0f,}},
-		{{1.0f, 1.0f,-1.0f,}},
-		{{1.0f,-1.0f,-1.0f,}},
-		{{-1.0f,-1.0f,-1.0f,}},
-		{{-1.0f,-1.0f,-1.0f,}},
-		{{-1.0f, 1.0f, 1.0f,}},
-		{{-1.0f, 1.0f,-1.0f,}},
-		{{1.0f,-1.0f, 1.0f,}},
-		{{-1.0f,-1.0f, 1.0f,}},
-		{{-1.0f,-1.0f,-1.0f,}},
-		{{-1.0f, 1.0f, 1.0f,}},
-		{{-1.0f,-1.0f, 1.0f,}},
-		{{1.0f,-1.0f, 1.0f,}},
-		{{1.0f, 1.0f, 1.0f,}},
-		{{1.0f,-1.0f,-1.0f,}},
-		{{1.0f, 1.0f,-1.0f,}},
-		{{1.0f,-1.0f,-1.0f,}},
-		{{1.0f, 1.0f, 1.0f,}},
-		{{1.0f,-1.0f, 1.0f,}},
-		{{1.0f, 1.0f, 1.0f,}},
-		{{1.0f, 1.0f,-1.0f,}},
-		{{-1.0f, 1.0f,-1.0f,}},
-		{{1.0f, 1.0f, 1.0f,}},
-		{{-1.0f, 1.0f,-1.0f,}},
-		{{-1.0f, 1.0f, 1.0f,}},
-		{{1.0f, 1.0f, 1.0f,}},
-		{{-1.0f, 1.0f, 1.0f,}},
-		{{1.0f,-1.0f, 1.0f}},
-	};
-	pn_render_object_t* object = pn_create_render_object(vertices, 12*3);
+	pn_render_object_t* triangle = pn_create_triangle();
+
+	pn_render_object_t* quad = pn_create_quad();
+	quad->m_color = (pn_color_t){255, 0, 0, 255};
+	quad->m_transform.m_pos[1] = 2;
 
 	__pn_cam_instance->m_pos[2] = -5;
 	__pn_cam_instance->m_pos[1] = 2;
@@ -56,16 +22,19 @@ int main(int argc, const char* argv[]){
 	while(pn_should_run()){
 		pn_start_frame();
 
-		object->m_transform.m_rot[1] = counter * 2;
+		triangle->m_transform.m_rot[1] = counter * 2;
+		quad->m_transform.m_rot[2] = counter * 2;
+		pn_render_render_object(quad, 0);
 
-		pn_render_render_object(object, 0);
+		pn_render_render_object(triangle, 0);
 
 		pn_end_frame();
 	
 		counter += __pn_delta_time;
 	}
 
-	pn_free_render_object(object);
+	pn_free_render_object(triangle);
+	pn_free_render_object(quad);
 	pn_exit();
 
 	return 0;

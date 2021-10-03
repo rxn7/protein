@@ -21,7 +21,7 @@ LIBS = -lGLEW -lglfw -lGLU
 all: compile output clean
 
 compile:
-	gcc -fpic $(HDRS) $(SRCS) -std=gnu11
+	gcc -fpic $(HDRS) $(SRCS) -std=c11
 
 output:
 	gcc -o bin/linux/libprotein.so $(LIBS) $(OBJS) -shared -Wl,-soname,libprotein
