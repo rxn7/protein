@@ -5,6 +5,12 @@
 #include "pn_shader.h"
 #include "pn_transform.h"
 
+typedef enum {
+	PN_TRIANGLE,
+	PN_QUAD,
+	PN_CUBE
+} pn_primite_t;
+
 typedef struct {
 	vec3 m_pos;
 } pn_vertex_t;
@@ -22,8 +28,7 @@ typedef struct {
 
 
 pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_count, u32* indices, u32 index_count);
-pn_render_object_t* pn_create_triangle();
-pn_render_object_t* pn_create_quad();
+pn_render_object_t* pn_create_primitive(pn_primite_t type);
 
 void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program);
 

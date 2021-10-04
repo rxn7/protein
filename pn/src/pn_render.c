@@ -1,5 +1,6 @@
 #include "pn_render.h"
 #include "pn_vars.h"
+#include "pn_log.h"
 
 pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_count, u32* indices, u32 index_count) {
 	pn_render_object_t* render_object = malloc(sizeof(pn_render_object_t));
@@ -32,29 +33,48 @@ pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_co
 	return render_object;
 }
 
-pn_render_object_t* pn_create_triangle() {
-	pn_vertex_t vertices[] = { 
-		{{-1.0f, -1.0f, 0.0f}},
-		{{ 0.0f,  1.0f, 0.0f}},
-		{{ 1.0f, -1.0f, 0.0f}},
-	};
+pn_render_object_t* pn_create_primitive(pn_primite_t type) {
+	pn_vertex_t* vertices;
+	u32* indices;
+	u32 vertex_count;
+	u32 index_count;
 
-	u32 indices[] = { 0, 1, 2 };
+	switch(type){
+		case PN_TRIANGLE:
+			vertices = (pn_vertex_t[]) {
+				{{-1.0f, -1.0f, 0.0f}},
+				{{ 0.0f,  1.0f, 0.0f}},
+				{{ 1.0f, -1.0f, 0.0f}},
+			};
 
-	return pn_create_render_object(vertices, 3, indices, 3);
-}
+			indices = (u32[]) {0,1,2};
 
-pn_render_object_t* pn_create_quad() {
-	pn_vertex_t vertices[] = { 
-		{{-1.0f, -1.0f, 0.0f}},
-		{{ 1.0f, -1.0f, 0.0f}},
-		{{ 1.0f,  1.0f, 0.0f}},
-		{{-1.0f,  1.0f, 0.0f}},
-	};
+			vertex_count = 3;
+			index_count = 3;
 
-	u32 indices[] = { 0, 1, 2, 2, 3, 0 };
+			break;
 
-	return pn_create_render_object(vertices, 4, indices, 6);
+		case PN_QUAD:
+			vertices = (pn_vertex_t[]) {
+				{{-1.0f, -1.0f, 0.0f}},
+				{{-1.0f,  1.0f, 0.0f}},
+				{{ 1.0f,  1.0f, 0.0f}},
+				{{ 1.0f, -1.0f, 0.0f}},
+			};
+
+			indices = (u32[]) {0,1,2, 2,3,0};
+
+			vertex_count = 4;
+			index_count = 6;
+
+			break;
+
+		default:
+			pn_error("Unknown primitive: %u", type);
+			return 0;
+	}
+
+	return pn_create_render_object(vertices, vertex_count, indices, index_count);
 }
 
 void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program) {
