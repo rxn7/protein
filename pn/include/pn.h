@@ -1,5 +1,6 @@
 #pragma once
 
+#include "pn_texture.h"
 #include "pn_transform.h"
 #include "pn_common.h"
 #include "pn_color.h"

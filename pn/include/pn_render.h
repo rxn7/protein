@@ -13,6 +13,7 @@ typedef enum {
 
 typedef struct {
 	vec3 m_pos;
+	vec2 m_uv;
 } pn_vertex_t;
 
 typedef struct {

@@ -1,5 +1,6 @@
 #include "pn_shader.h"
 #include "pn_log.h"
+#include "pn_vars.h"
 
 static void pn_compile_shader(GLenum type, u32* id, const char* src) {
 	*id = glCreateShader(type);
@@ -13,6 +14,35 @@ static void pn_compile_shader(GLenum type, u32* id, const char* src) {
 		glGetShaderInfoLog(*id, 512, NULL, info_log);
 		pn_error("Failed to compile %s shader: %s", type == GL_VERTEX_SHADER ? "vertex" : "fragment", info_log);
 	}
+}
+
+void pn_init_default_shaders() {
+	// If default shader already exists, return.
+	if(__pn_default_shader_program) return;
+
+	const char* default_vert_shader = 	"#version 330 core\n"
+										"layout (location = 0) in vec3 a_pos;\n"
+										"layout (location = 1) in vec2 a_uv;\n"
+										"uniform mat4 u_model;\n"
+										"uniform mat4 u_view;\n"
+										"uniform mat4 u_projection;\n"
+										"out vec2 v_uv;\n"
+										"void main() {\n"
+										"\tgl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0);\n"
+										"\tv_uv = a_uv;\n"
+										"}";
+
+	const char* default_frag_shader =	"#version 330 core\n"
+										"uniform vec4 u_color;\n"
+										"uniform sampler2D u_texture;\n"
+										"out vec4 f_color;\n"
+										"in vec2 v_uv;\n"
+										"void main() {\n"
+										"\tvec4 tex_color = texture(u_texture, v_uv);\n"
+										"\tf_color = tex_color;\n"
+										"}";
+
+	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
 }
 
 pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* frag_src) {

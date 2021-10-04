@@ -25,7 +25,11 @@ pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_co
 
 	// Position attrib array.
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(f32) * 3, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(pn_vertex_t), (void*)offsetof(pn_vertex_t, m_pos));
+
+	// UV attrib array.
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(pn_vertex_t), (void*)offsetof(pn_vertex_t, m_uv));
 
 	// Unbind the VAO.
 	glBindVertexArray(0);
@@ -42,9 +46,9 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 	switch(type){
 		case PN_TRIANGLE:
 			vertices = (pn_vertex_t[]) {
-				{{-1.0f, -1.0f, 0.0f}},
-				{{ 0.0f,  1.0f, 0.0f}},
-				{{ 1.0f, -1.0f, 0.0f}},
+				{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},
+				{{ 0.0f,  1.0f, 0.0f}, {0.5f, 1.0f}},
+				{{ 1.0f, -1.0f, 0.0f}, {1.0f, 0.0f}},
 			};
 
 			indices = (u32[]) {0,1,2};
@@ -56,10 +60,10 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 
 		case PN_QUAD:
 			vertices = (pn_vertex_t[]) {
-				{{-1.0f, -1.0f, 0.0f}},
-				{{-1.0f,  1.0f, 0.0f}},
-				{{ 1.0f,  1.0f, 0.0f}},
-				{{ 1.0f, -1.0f, 0.0f}},
+				{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},
+				{{-1.0f,  1.0f, 0.0f}, {0.0f, 1.0f}},
+				{{ 1.0f,  1.0f, 0.0f}, {1.0f, 1.0f}},
+				{{ 1.0f, -1.0f, 0.0f}, {1.0f, 0.0f}},
 			};
 
 			indices = (u32[]) {0,1,2, 2,3,0};
