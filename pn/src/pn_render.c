@@ -44,7 +44,7 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 	u32 index_count;
 
 	switch(type){
-		case PN_TRIANGLE:
+		case PN_TRIANGLE: {
 			vertices = (pn_vertex_t[]) {
 				{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},
 				{{ 0.0f,  1.0f, 0.0f}, {0.5f, 1.0f}},
@@ -57,9 +57,9 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 			index_count = 3;
 
 			break;
+		}
 
-
-		case PN_QUAD:
+		case PN_QUAD: {
 			vertices = (pn_vertex_t[]) {
 				{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},
 				{{-1.0f,  1.0f, 0.0f}, {0.0f, 1.0f}},
@@ -73,10 +73,9 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 			index_count = 6;
 
 			break;
+		}
 
-
-		case PN_PYRAMID:
-			// TODO: Fix the UV maps
+		case PN_PYRAMID: {
 			vertices = (pn_vertex_t[]) {
 				{{-1, -1,  1}, {0.0f, 0.0f}}, // 0
 				{{-1, -1, -1}, {0.0f, 1.0f}}, // 1
@@ -97,7 +96,7 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 			index_count = 18;
 
 			break;
-
+		}
 
 		default:
 			pn_error("Unknown primitive: %u", type);
@@ -107,10 +106,18 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 	return pn_create_render_object(vertices, vertex_count, indices, index_count);
 }
 
-void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program) {
+void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program, pn_texture_t* texture) {
 	if(!shader_program) shader_program = __pn_default_shader_program;
-
 	pn_bind_shader_program(shader_program);
+	
+	if(texture) { 
+		pn_bind_texture(texture);
+		glUniform1i(shader_program->m_uniforms[UNI_HAS_TEXTURE], 1);
+	} else {
+		pn_unbind_texture();
+		glUniform1i(shader_program->m_uniforms[UNI_HAS_TEXTURE], 0);
+	}
+
 
 	mat4 model; pn_calculate_transform_model(&render_object->m_transform, model);
 

@@ -4,11 +4,13 @@
 #include "pn_common.h"
 #include "pn_shader.h"
 #include "pn_transform.h"
+#include "pn_texture.h"
 
 typedef enum {
 	PN_TRIANGLE,
 	PN_QUAD,
-	PN_PYRAMID
+	PN_PYRAMID,
+	PN_CUBE,
 } pn_primite_t;
 
 typedef struct {
@@ -31,7 +33,7 @@ typedef struct {
 pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_count, u32* indices, u32 index_count);
 pn_render_object_t* pn_create_primitive(pn_primite_t type);
 
-void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program);
+void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program, pn_texture_t* texture);
 
 void pn_free_render_object(pn_render_object_t* render_object);
 

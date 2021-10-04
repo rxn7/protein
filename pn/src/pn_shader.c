@@ -34,12 +34,16 @@ void pn_init_default_shaders() {
 
 	const char* default_frag_shader =	"#version 330 core\n"
 										"uniform vec4 u_color;\n"
+										"uniform int u_has_texture;\n"
 										"uniform sampler2D u_texture;\n"
 										"out vec4 f_color;\n"
 										"in vec2 v_uv;\n"
 										"void main() {\n"
-										"\tvec4 tex_color = texture(u_texture, v_uv);\n"
-										"\tf_color = tex_color;\n"
+										"\tif(u_has_texture == 1){\n"
+										"\t\tf_color = texture(u_texture, v_uv) * u_color;\n"
+										"\t}else{\n"
+										"\t\tf_color = u_color;\n"
+										"}\n"
 										"}";
 
 	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
@@ -80,6 +84,7 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	program->m_uniforms[UNI_VIEW] = glGetUniformLocation(program->m_id, "u_view");
 	program->m_uniforms[UNI_PROJECTION] = glGetUniformLocation(program->m_id, "u_projection");
 	program->m_uniforms[UNI_COLOR] = glGetUniformLocation(program->m_id, "u_color");
+	program->m_uniforms[UNI_HAS_TEXTURE] = glGetUniformLocation(program->m_id, "u_has_texture");
 
 	// Delete the shaders.
 	glDeleteShader(program->m_vert_shader);
