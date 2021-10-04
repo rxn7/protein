@@ -14,7 +14,8 @@ OBJS =  pn.o \
 		pn_render.o \
 		pn_shader.o  \
 		pn_camera.o \
-		pn_transform.o 
+		pn_transform.o \
+		pn_texture.o 
 
 LIBS = -lGLEW -lglfw -lGLU
 

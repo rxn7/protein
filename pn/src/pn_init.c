@@ -68,34 +68,18 @@ bool pn_postinit() {
 	// OpenGL Settings.
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
-	// glEnable(GL_STENCIL_TEST);
-	// glEnable(GL_CULL_FACE);
-	// glCullFace(GL_FRONT);
+	glDepthFunc(GL_LESS);
 
-	pn_update_viewport();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	pn_create_camera((vec3){0, 0, -3.f}, 70, 0.01f, 1000.0f);
+	pn_update_viewport();
 
-	// Create the default shader.
-	const char* default_vert_shader = 	"#version 330 core\n"
-										"layout (location = 0) in vec3 a_pos;\n"
-										"uniform mat4 u_model;\n"
-										"uniform mat4 u_view;\n"
-										"uniform mat4 u_projection;\n"
-										"void main() {\n"
-										"\tgl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0);\n"
-										"}";
-
-	const char* default_frag_shader =	"#version 330 core\n"
-										"uniform vec4 u_color;\n"
-										"out vec4 frag_color;\n"
-										"void main() {\n"
-										"\tfrag_color = u_color;\n"
-										"}";
-
-	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
-
-	// Everything's initialized. Now we can show the window.
+	pn_init_default_shaders();
 	glfwShowWindow(__pn_window_instance->m_glfw_window);
 
 	pn_log("Successfully finished post-init!");
