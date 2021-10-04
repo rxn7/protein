@@ -8,7 +8,7 @@
 typedef enum {
 	PN_TRIANGLE,
 	PN_QUAD,
-	PN_CUBE
+	PN_PYRAMID
 } pn_primite_t;
 
 typedef struct {

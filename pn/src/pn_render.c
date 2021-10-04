@@ -58,6 +58,7 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 
 			break;
 
+
 		case PN_QUAD:
 			vertices = (pn_vertex_t[]) {
 				{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},
@@ -72,6 +73,31 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 			index_count = 6;
 
 			break;
+
+
+		case PN_PYRAMID:
+			// TODO: Fix the UV maps
+			vertices = (pn_vertex_t[]) {
+				{{-1, -1,  1}, {0.0f, 0.0f}}, // 0
+				{{-1, -1, -1}, {0.0f, 1.0f}}, // 1
+				{{ 1, -1, -1}, {1.0f, 1.0f}}, // 2
+				{{ 1, -1,  1}, {1.0f, 0.0f}}, // 3
+				{{ 0,  1,  0}, {0.5f, 1.0f}}, // 4
+			};
+
+			indices = (u32[]) {
+				0,1,3, 1,2,3, 
+				1,4,2,
+				2,4,3,
+				3,4,0,
+				0,4,1,
+			};
+
+			vertex_count = 5;
+			index_count = 18;
+
+			break;
+
 
 		default:
 			pn_error("Unknown primitive: %u", type);

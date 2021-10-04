@@ -73,8 +73,8 @@ bool pn_postinit() {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// glEnable(GL_CULL_FACE);
-	// glCullFace(GL_FRONT);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	pn_create_camera((vec3){0, 0, -3.f}, 70, 0.01f, 1000.0f);
 	pn_update_viewport();
