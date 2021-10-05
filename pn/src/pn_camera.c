@@ -5,6 +5,9 @@
 pn_camera_t* pn_create_camera(vec3 pos, float fov, float znear, float zfar) {
 	pn_camera_t* camera = malloc(sizeof(pn_camera_t));
 	
+    f32 aspect = (f32)__pn_window_instance->m_width / __pn_window_instance->m_height;
+    gluPerspective(fov, aspect, znear, zfar);
+
 	__pn_cam_instance = camera;
 
 	glm_vec3_copy(pos, camera->m_pos);
