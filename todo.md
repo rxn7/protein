@@ -1,7 +1,7 @@
 # TODO
 
 ## Working On
-* Doxygen documenation
+* Windows Support / OS Independence
 
 ## For Later
 * Texture loading.

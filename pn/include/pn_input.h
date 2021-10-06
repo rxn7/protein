@@ -128,3 +128,5 @@ typedef int pn_key_t;
 
 
 bool pn_is_key_pressed(pn_key_t key);
+void pn_lock_mouse();
+void pn_unlock_mouse();

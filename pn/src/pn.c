@@ -24,8 +24,6 @@ void pn_start_frame() {
 	float current_frame = glfwGetTime();
 	__pn_delta_time = current_frame - __pn_last_frame;
 	__pn_last_frame = current_frame;
-
-	pn_camera_update();
 }
 
 void pn_end_frame() {

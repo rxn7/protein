@@ -36,6 +36,7 @@ bool pn_preinit() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
 
+	__pn_camera_update_queued = true;
 	__pn_pre_inited = true;
 
 	return true;

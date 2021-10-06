@@ -15,9 +15,10 @@ OBJS =  pn.o \
 		pn_shader.o  \
 		pn_camera.o \
 		pn_transform.o \
-		pn_texture.o 
+		pn_texture.o \
+		pn_sys.o
 
-LIBS = -lGLEW -lglfw -lGLU
+LIBS = -lGLEW -lglfw
 
 all: compile output clean
 

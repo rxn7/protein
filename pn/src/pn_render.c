@@ -107,6 +107,8 @@ pn_render_object_t* pn_create_primitive(pn_primite_t type) {
 }
 
 void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program, pn_texture_t* texture) {
+	pn_update_camera();
+	
 	if(!shader_program) shader_program = __pn_default_shader_program;
 	pn_bind_shader_program(shader_program);
 	
