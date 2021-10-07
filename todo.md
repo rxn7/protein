@@ -4,16 +4,17 @@
 * Windows Support / OS Independence
 
 ## For Later
-* Texture loading.
 * Lighting.
 * .OBJ loading.
-* Primitives - cube, sphere, etc.
+* Replce cglm with custom lib.
 
 # Done
+* Texture loading.
+* Primitives - cube, pyrmid, etc.
 * Default shader
 * Input system - needs polishing
 * Project restructure
-* Remove pn.h references in header files, instead include only what it needs.
+* Remove pn.h references in header files, include only what they need instead.
 * Rendering system
 * 3D Perspective.
 * Basic camera system.

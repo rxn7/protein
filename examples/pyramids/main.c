@@ -16,36 +16,46 @@ int main(int argc, const char* argv[]){
 	while(pn_should_run()){
 		pn_start_frame();
 
-		// __pn_cam_instance->m_pos[2] = cosf(counter * 2) * 40 - 50;
 		vec3 move_dir = {0, 0, 0};
-		if(pn_is_key_pressed(PN_KEY_W)) move_dir[2] += __pn_cam_instance->m_forward[2];
-		if(pn_is_key_pressed(PN_KEY_S)) move_dir[2] -= __pn_cam_instance->m_forward[2];
-		if(pn_is_key_pressed(PN_KEY_A)) move_dir[0] -= __pn_cam_instance->m_right[0];
-		if(pn_is_key_pressed(PN_KEY_D)) move_dir[0] += __pn_cam_instance->m_right[0];
-		move_dir[0] *= __pn_delta_time * 2;
-		move_dir[2] *= __pn_delta_time * 2;
+		if(pn_is_key_pressed(PN_KEY_W)) glm_vec3_add(move_dir, __pn_cam_instance->m_forward, move_dir);
+		if(pn_is_key_pressed(PN_KEY_S)) glm_vec3_sub(move_dir, __pn_cam_instance->m_forward, move_dir);
+		if(pn_is_key_pressed(PN_KEY_A)) glm_vec3_sub(move_dir, __pn_cam_instance->m_right, move_dir);
+		if(pn_is_key_pressed(PN_KEY_D)) glm_vec3_add(move_dir, __pn_cam_instance->m_right, move_dir);
+		glm_vec3_normalize(move_dir); 
+		pn_vec3_mult_each(move_dir, __pn_delta_time * 10);
+		pn_move_camera(move_dir);
 
-		pn_move_camera(move_dir, true);
+		f32 rotate_speed = __pn_delta_time * 200;
+		if(pn_is_key_pressed(PN_KEY_LEFT)) pn_rotate_camera(-rotate_speed, 0);	
+		if(pn_is_key_pressed(PN_KEY_RIGHT)) pn_rotate_camera(rotate_speed, 0);	
+		if(pn_is_key_pressed(PN_KEY_UP)) pn_rotate_camera(0, rotate_speed);	
+		if(pn_is_key_pressed(PN_KEY_DOWN)) pn_rotate_camera(0, -rotate_speed);	
 
  		obj->m_transform.m_rot[1] = counter;
 
 		glm_vec3_copy((vec3) { cosf(counter * 5) / 2 + 1, sinf(counter * 5) / 2 + 1, cosf(counter * 5) / 2 + 1 }, obj->m_transform.m_scale);
 
-		int rows = 10;
-		int cols = 10;
+		int max_x = 10;
+		int max_y = 10;
+		int max_z = 10;
 
-		int half_rows = rows/2;
-		int half_cols = cols/2;		
+		int half_x = max_x/2;
+		int half_y = max_y/2;		
+		int half_z = max_z/2;
 
-		for(int x=-half_rows; x<half_rows; x++){
-			for(int y=-half_cols; y<half_cols; y++){
-				f32 red = (f32)(x + half_rows) / rows * 255;
-				f32 green = (f32)(y + half_cols) / cols * 255;
-				obj->m_color = (pn_color_t) {red, green, 255, 255};
-				
-				obj->m_transform.m_pos[0] = x * 4;
-				obj->m_transform.m_pos[1] = y * 4;
-				pn_render_render_object(obj, 0, texture);
+		for(int x=-half_x; x<half_x; x++){
+			for(int y=-half_y; y<half_y; y++){
+				for(int z=-half_z; z<half_z; z++){
+					f32 red = (f32)(x + half_x) / max_x * 255;
+					f32 green = (f32)(y + half_y) / max_y * 255;
+					f32 blue = (f32)(z + half_z) / max_z * 255;
+					obj->m_color = (pn_color_t) {red, green, blue, 255};
+					
+					obj->m_transform.m_pos[0] = x * 4;
+					obj->m_transform.m_pos[1] = y * 4;
+					obj->m_transform.m_pos[2] = z * 4;
+					pn_render_render_object(obj, 0, texture);
+				}
 			}
 		}
 

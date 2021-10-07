@@ -3,7 +3,7 @@
 #include "pn_log.h"
 #include <GL/glew.h>
 
-pn_camera_t* pn_create_camera(vec3 pos, float fov, float znear, float zfar) {
+pn_camera_t* pn_create_camera(vec3 pos, f32 fov, f32 znear, f32 zfar) {
 	pn_camera_t* camera = malloc(sizeof(pn_camera_t));
 	camera->m_yaw = 90.f;
 	camera->m_pitch = 0.f;
@@ -56,10 +56,25 @@ void pn_free_camera(pn_camera_t* camera) {
 	free(camera);
 }
 
-void pn_move_camera(vec3 move_dir, bool normalize) {
-	if(normalize) glm_vec3_normalize(move_dir);
-
+void pn_move_camera(vec3 move_dir) {
 	glm_vec3_add(__pn_cam_instance->m_pos, move_dir, __pn_cam_instance->m_pos);
+
+	__pn_camera_update_queued = true;
+}
+
+void pn_rotate_camera(f32 yaw, f32 pitch) {
+	__pn_cam_instance->m_yaw += yaw;
+	__pn_cam_instance->m_pitch += pitch;
+
+	while(__pn_cam_instance->m_yaw > 360) __pn_cam_instance->m_yaw -= 360;
+	while(__pn_cam_instance->m_yaw < -360) __pn_cam_instance->m_yaw += 360;
+
+	pn_debug("Y: %f,  P: %f", __pn_cam_instance->m_yaw, __pn_cam_instance->m_pitch);
+
+	if(__pn_cam_instance->m_pitch > 89) __pn_cam_instance->m_pitch = 89;
+	if(__pn_cam_instance->m_pitch < -89) __pn_cam_instance->m_pitch = -89;
+
+	pn_debug("Y: %f,  P: %f", __pn_cam_instance->m_yaw, __pn_cam_instance->m_pitch);
 
 	__pn_camera_update_queued = true;
 }

@@ -1,7 +1,11 @@
+ifeq ($(OS),Windows_NT) 
+    PN_OS := Windows
+else
+    PN_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+endif
+
 HDRS = -I include -I src
-
 SRCS = -c src/*.c
-
 OBJS =  pn.o \
 		pn_window.o \
 		pn_vars.o \
@@ -17,8 +21,15 @@ OBJS =  pn.o \
 		pn_transform.o \
 		pn_texture.o \
 		pn_sys.o
-
 LIBS = -lGLEW -lglfw
+
+ifeq ($(PN_OS), Windows)
+	TARGET = bin/windows/protein.dll
+endif
+
+ifeq ($(PN_OS), Linux)
+	TARGET = bin/linux/libprotein.so
+endif
 
 all: compile output clean
 
@@ -26,7 +37,7 @@ compile:
 	gcc -fpic $(HDRS) $(SRCS) -std=c11
 
 output:
-	gcc -o bin/linux/libprotein.so $(LIBS) $(OBJS) -shared -Wl,-soname,libprotein
+	gcc -o $(TARGET) $(LIBS) $(OBJS) -shared -Wl,-soname,libprotein
 
 clean:
 	rm *.o
