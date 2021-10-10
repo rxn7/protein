@@ -66,6 +66,9 @@ bool pn_postinit() {
 		return false;
 	}
 
+	// Enable raw mouse motion if supported.
+	if(glfwRawMouseMotionSupported()) glfwSetInputMode(__pn_window_instance->m_glfw_window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+
 	// OpenGL Settings.
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);

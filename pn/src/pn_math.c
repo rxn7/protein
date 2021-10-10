@@ -1,5 +1,62 @@
 #include "pn_math.h"
 
-void pn_vec3_mult_each(vec3 vec, float value) {
-	for(u8 i=0; i<3; i++) vec[i] *= value;
+void pn_v2_mult_each(v2 vec, float value) {
+	vec[0] *= value;
+	vec[1] *= value;
+}
+
+void pn_v3_mult_each(v3 vec, float value) {
+	vec[0] *= value;
+	vec[1] *= value;
+	vec[2] *= value;
+}
+
+void pn_v2_div_each(v2 vec, float value) {
+	vec[0] /= value;
+	vec[1] /= value;
+}
+
+void pn_v3_div_each(v3 vec, float value) {
+	vec[0] /= value;
+	vec[1] /= value;
+	vec[2] /= value;
+}
+
+void pn_v2_set(v2 vec, v2 value) {
+	vec[0] = value[0];
+	vec[1] = value[1];
+}
+
+void pn_v3_set(v3 vec, v3 value) {
+	vec[0] = value[0];
+	vec[1] = value[1];
+	vec[2] = value[2];
+}
+
+void pn_v2_normalize(v2 vec) {
+	f32 mag = pn_v2_get_magnitude(vec);
+
+	if(mag != 0) {
+		pn_v2_div_each(vec, mag);
+	}else {
+		pn_v2_set(vec, (vec2){0,0});
+	}
+}
+
+void pn_v3_normalize(v3 vec) {
+	f32 mag = pn_v3_get_magnitude(vec);
+
+	if(mag != 0) {
+		pn_v3_div_each(vec, mag);
+	}else {
+		pn_v3_set(vec, (vec3){0,0,0});
+	}
+}
+
+f32 pn_v2_get_magnitude(v2 vec) {
+	return sqrtf(vec[0] * vec[0] + vec[1] * vec[1]);
+}
+
+f32 pn_v3_get_magnitude(v3 vec) {
+	return sqrtf(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]);
 }

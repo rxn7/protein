@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdbool.h>
+#include "pn_common.h"
 
 typedef int pn_key_t;
 
@@ -130,3 +130,10 @@ typedef int pn_key_t;
 bool pn_is_key_pressed(pn_key_t key);
 void pn_lock_mouse();
 void pn_unlock_mouse();
+
+void pn_enable_mouse_camera_movement();
+void pn_disable_mouse_camera_movement();
+
+void pn_set_mouse_sens(f32 sens);
+
+void pn_update_input();

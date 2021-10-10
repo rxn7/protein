@@ -11,12 +11,8 @@ pn_camera_t* pn_create_camera(vec3 pos, f32 fov, f32 znear, f32 zfar) {
 	__pn_cam_instance = camera;
 
 	glm_vec3_copy(pos, camera->m_pos);
-	
-	vec3 forward = {0, 0, 1};
-	glm_vec3_copy(forward, camera->m_forward);
-
-	vec3 up = {0, 1, 0};
-	glm_vec3_copy(up, camera->m_up);
+	glm_vec3_copy((vec3){0,0,1}, camera->m_forward);
+	glm_vec3_copy((vec3){0,1,0}, camera->m_up);
 
 	__pn_camera_update_queued = true;
 
@@ -69,12 +65,8 @@ void pn_rotate_camera(f32 yaw, f32 pitch) {
 	while(__pn_cam_instance->m_yaw > 360) __pn_cam_instance->m_yaw -= 360;
 	while(__pn_cam_instance->m_yaw < -360) __pn_cam_instance->m_yaw += 360;
 
-	pn_debug("Y: %f,  P: %f", __pn_cam_instance->m_yaw, __pn_cam_instance->m_pitch);
-
-	if(__pn_cam_instance->m_pitch > 89) __pn_cam_instance->m_pitch = 89;
-	if(__pn_cam_instance->m_pitch < -89) __pn_cam_instance->m_pitch = -89;
-
-	pn_debug("Y: %f,  P: %f", __pn_cam_instance->m_yaw, __pn_cam_instance->m_pitch);
+	if(__pn_cam_instance->m_pitch > 89.99f) __pn_cam_instance->m_pitch = 89.99f;
+	if(__pn_cam_instance->m_pitch < -89.99f) __pn_cam_instance->m_pitch = -89.99f;
 
 	__pn_camera_update_queued = true;
 }

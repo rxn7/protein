@@ -5,7 +5,7 @@
 
 #include <stdlib.h>
 
-pn_window_t* pn_create_window(char* title, u32 width, u32 height) {
+void pn_create_window(char* title, u32 width, u32 height) {
 	pn_window_t* window = malloc(sizeof(pn_window_t));
 	window->m_title = title;
 	window->m_width = width;
@@ -14,14 +14,12 @@ pn_window_t* pn_create_window(char* title, u32 width, u32 height) {
 
 	if(window->m_glfw_window == NULL){
 		pn_error("Failed to create window!");	
-		return NULL;
+		return;
 	}
 
 	__pn_window_instance = window;
 
 	pn_postinit(); 
-
-	return window;
 }
 
 void pn_set_window_title(char* title) {

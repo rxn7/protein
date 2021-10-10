@@ -2,11 +2,16 @@
 
 ## Working On
 * Windows Support / OS Independence
+* Replce cglm with custom lib.
 
 ## For Later
 * Lighting.
 * .OBJ loading.
-* Replce cglm with custom lib.
+* GUI
+** Text rendering
+** Image rendering
+** Buttons
+** Text fields
 
 # Done
 * Texture loading.

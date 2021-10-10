@@ -3,5 +3,20 @@
 #include "pn_common.h"    
 #define PN_PI 3.1415926535897932384626433832795
 
-// Multiplies each value in vec3.
-void pn_vec3_mult_each(vec3 vec, float value);
+typedef f32 v3[3];
+typedef f32 v2[2];
+
+f32 pn_v2_get_magnitude(v2 vec);
+f32 pn_v3_get_magnitude(v3 vec);
+
+void pn_v2_normalize(v2 vec);
+void pn_v3_normalize(v3 vec);
+
+void pn_v2_set(v2 vec, v2 value);
+void pn_v3_set(v3 vec, v3 value);
+
+void pn_v2_mult_each(v2 vec, f32 value);
+void pn_v3_mult_each(v3 vec, f32 value);
+
+void pn_v2_div_each(v2 vec, f32 value);
+void pn_v3_div_each(v2 vec, f32 value);

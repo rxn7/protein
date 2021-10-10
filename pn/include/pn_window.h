@@ -11,7 +11,7 @@ typedef struct {
 
 
 
-pn_window_t* pn_create_window(char* title, u32 width, u32 height);
+void pn_create_window(char* title, u32 width, u32 height);
 
 void pn_update_viewport();
 
