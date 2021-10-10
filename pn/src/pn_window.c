@@ -2,24 +2,23 @@
 #include "pn_vars.h"
 #include "pn_init.h"
 #include "pn_log.h"
-
 #include <stdlib.h>
 
-void pn_create_window(char* title, u32 width, u32 height) {
+bool pn_create_window(const char* title, u32 width, u32 height) {
 	pn_window_t* window = malloc(sizeof(pn_window_t));
-	window->m_title = title;
+	window->m_title = (char*)title;
 	window->m_width = width;
 	window->m_height = height;
 	window->m_glfw_window = glfwCreateWindow(width, height, title, NULL, NULL);
 
-	if(window->m_glfw_window == NULL){
+	if(!window->m_glfw_window){
 		pn_error("Failed to create window!");	
-		return;
+		return false;
 	}
 
 	__pn_window_instance = window;
 
-	pn_postinit(); 
+	return true;
 }
 
 void pn_set_window_title(char* title) {
