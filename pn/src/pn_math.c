@@ -60,3 +60,25 @@ f32 pn_v2_get_magnitude(v2 vec) {
 f32 pn_v3_get_magnitude(v3 vec) {
 	return sqrtf(vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2]);
 }
+
+void pn_v2_add(v2 a, v2 b, v2 dest) {
+	dest[0] = a[0] + b[0];
+	dest[1] = a[1] + b[1];
+}
+
+void pn_v2_sub(v2 a, v2 b, v2 dest) {
+	dest[0] = a[0] - b[0];
+	dest[1] = a[1] - b[1];
+}
+
+void pn_v3_add(v3 a, v3 b, v3 dest) {
+	dest[0] = a[0] + b[0];
+	dest[1] = a[1] + b[1];
+	dest[2] = a[2] + b[2];
+}
+
+void pn_v3_sub(v3 a, v3 b, v3 dest) {
+	dest[0] = a[0] - b[0];
+	dest[1] = a[1] - b[1];
+	dest[2] = a[2] - b[2];
+}
