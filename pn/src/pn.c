@@ -12,8 +12,8 @@ void pn_exit() {
 	glfwTerminate();
 
 	pn_free_shader_program(__pn_default_shader_program);
-
-	pn_log("Exiting...");
+	
+    pn_log("Exiting...");
 }
 
 void pn_start_frame() {

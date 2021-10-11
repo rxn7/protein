@@ -6,10 +6,11 @@ int main(int argc, const char* argv[]){
 	if(!pn_init("Protein", 800, 640)) return -1;
 
 	pn_set_clear_color((pn_color_t){ 80, 80, 80, 255});
+	
+    pn_enable_mouse_camera_movement();
 	pn_lock_mouse();
-	pn_enable_mouse_camera_movement();
-
-	pn_render_object_t* obj = pn_create_primitive(PN_PYRAMID);
+	
+    pn_render_object_t* obj = pn_create_primitive(PN_PYRAMID);
 
 	float counter=0.0f;
 	f32* move_dir;
@@ -47,7 +48,7 @@ int main(int argc, const char* argv[]){
 		f32 scale = cosf(counter * 10) / 2+ 1;
 		pn_v3_set(obj->m_transform.m_scale, (v3){scale, scale, scale});
 
-		const static int MAX = 10;
+		const static int MAX = 20;
 		const static int HALF = MAX/2;
 
 		// Render the object multiple times in each direction.

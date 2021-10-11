@@ -12,6 +12,7 @@
 ** Image rendering
 ** Buttons
 ** Text fields
+** Sound
 
 # Done
 * Texture loading.
