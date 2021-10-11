@@ -1,7 +1,4 @@
 #include "pn/pn.h"
-#include "pn/pn_sys.h"
-#include <stdlib.h>
-#include <math.h>
 
 #define MOVE_SPEED 10
 
