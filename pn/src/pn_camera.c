@@ -7,7 +7,7 @@ pn_camera_t* pn_create_camera(vec3 pos, f32 fov, f32 znear, f32 zfar) {
 	pn_camera_t* camera = malloc(sizeof(pn_camera_t));
 	camera->m_yaw = 90.f;
 	camera->m_pitch = 0.f;
-
+  
 	__pn_cam_instance = camera;
 
 	glm_vec3_copy(pos, camera->m_pos);

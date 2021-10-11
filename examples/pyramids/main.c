@@ -3,22 +3,20 @@
 #define MOVE_SPEED 10
 
 int main(int argc, const char* argv[]){
-	if(!pn_init()) return -1;
-	pn_create_window("Protein", 800, 640);
-
-	pn_render_object_t* obj = pn_create_primitive(PN_PYRAMID);
+	if(!pn_init("Protein", 800, 640)) return -1;
 
 	pn_set_clear_color((pn_color_t){ 80, 80, 80, 255});
-	
 	pn_lock_mouse();
 	pn_enable_mouse_camera_movement();
 
-	__pn_cam_instance->m_pos[2] = -20;
+	pn_render_object_t* obj = pn_create_primitive(PN_PYRAMID);
 
 	float counter=0.0f;
 	f32* move_dir;
 	f32* forward;
 	f32* right;
+
+	__pn_cam_instance->m_pos[2] = -20;
 
 	while(pn_should_run()){
 		pn_start_frame();
@@ -57,7 +55,7 @@ int main(int argc, const char* argv[]){
 			for(int y=-HALF; y<HALF; y++){
 				for(int z=-HALF; z<HALF; z++){
 					// Set object's color.
-					obj->m_color = (pn_color_t) {(f32)(x + HALF) / MAX * 255, (f32)(y + HALF) / MAX * 255, (f32)(z + HALF) / MAX * 255;, 255};
+					obj->m_color = (pn_color_t) {(f32)(x + HALF) / MAX * 255, (f32)(y + HALF) / MAX * 255, (f32)(z + HALF) / MAX * 255, 255};
 
 					pn_v3_set(obj->m_transform.m_pos, (v3){x,y,z});
 					pn_v3_mult_each(obj->m_transform.m_pos, 4);
