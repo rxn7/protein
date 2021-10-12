@@ -13,7 +13,7 @@ int main(int argc, const char* argv[]){
 	
     pn_render_object_t* obj = pn_create_primitive(PN_PYRAMID);
 
-	float counter=0.0f;
+	f32 counter=0.0f;
 	f32* move_dir;
 	f32* forward;
 	f32* right;
