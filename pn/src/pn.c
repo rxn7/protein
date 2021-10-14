@@ -4,7 +4,7 @@
 #include "pn_init.h"
 
 bool pn_should_run() { 
-	return pn_should_run && !glfwWindowShouldClose(__pn_window_instance->m_glfw_window);
+	return __pn_should_run && !glfwWindowShouldClose(__pn_window_instance->m_glfw_window);
 }
 
 static void pn_update_delta_time() {
