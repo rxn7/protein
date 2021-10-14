@@ -11,7 +11,7 @@ int main(int argc, const char* argv[]){
     pn_enable_mouse_camera_movement();
 	pn_lock_mouse();
 	
-    pn_render_object_t* obj = pn_create_primitive(PN_PYRAMID);
+    pn_render_object_t* obj = pn_create_primitive_render_object(PN_PYRAMID);
 
 	f32 counter=0.0f;
 	f32* move_dir;
