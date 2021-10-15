@@ -39,7 +39,7 @@ void pn_v2_normalize(v2 vec) {
 	if(mag != 0) {
 		pn_v2_div_each(vec, mag);
 	}else {
-		pn_v2_set(vec, (vec2){0,0});
+		pn_v2_set(vec, (v2){0,0});
 	}
 }
 
@@ -49,7 +49,7 @@ void pn_v3_normalize(v3 vec) {
 	if(mag != 0) {
 		pn_v3_div_each(vec, mag);
 	}else {
-		pn_v3_set(vec, (vec3){0,0,0});
+		pn_v3_set(vec, (v3){0,0,0});
 	}
 }
 
@@ -81,4 +81,17 @@ void pn_v3_sub(v3 a, v3 b, v3 dest) {
 	dest[0] = a[0] - b[0];
 	dest[1] = a[1] - b[1];
 	dest[2] = a[2] - b[2];
+}
+
+void pn_v3_cross(v3 a, v3 b, v3 dest) {
+    v3 result = {a[1]*b[2] - a[2]*b[1], a[0]*b[2] - a[2]*b[0], a[0]*b[1] - a[1]*b[0]};
+    pn_v3_set(dest, result);
+}
+
+void pn_v3_normal(v3 a, v3 b, v3 c, v3 dest) {
+    v3 x = {b[0]-a[0], b[1]-a[1], b[2]-a[2]};
+    v3 y = {c[0]-a[0], c[1]-a[1], c[2]-a[2]};
+
+    pn_v3_cross(x, y, dest);
+    pn_v3_normalize(dest);
 }

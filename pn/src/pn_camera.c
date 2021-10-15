@@ -1,4 +1,5 @@
 #include "pn_camera.h"
+#include "pn_shader.h"
 #include "pn_vars.h"
 #include "pn_log.h"
 #include <GL/glew.h>
@@ -46,6 +47,10 @@ void pn_update_camera() {
 	// Calculate the view matrix.
 	glm_mat4_identity(__pn_cam_instance->m_view);
 	glm_lookat(__pn_cam_instance->m_pos, look_dir, __pn_cam_instance->m_up, __pn_cam_instance->m_view);
+
+	pn_bind_shader_program(__pn_default_shader_program);
+		glUniform3fv(__pn_default_shader_program->m_uniforms[UNI_CAMERA_POS], 1, __pn_cam_instance->m_pos);
+	pn_unbind_shader_program();
 }
 
 void pn_free_camera(pn_camera_t* camera) {

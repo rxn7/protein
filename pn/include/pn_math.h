@@ -28,3 +28,7 @@ void pn_v2_sub(v2 a, v2 b, v2 dest);
 
 void pn_v3_add(v3 a, v3 b, v3 dest);
 void pn_v3_sub(v3 a, v3 b, v3 dest);
+
+void pn_v3_cross(v3 a, v3 b, v3 dest);
+
+void pn_v3_normal(v3 a, v3 b, v3 c, v3 dest);
