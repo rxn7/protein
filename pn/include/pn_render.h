@@ -9,7 +9,9 @@
 
 typedef enum {
 	PN_TRIANGLE,
+    PN_TRIANGLE_ONE_FACE,
 	PN_QUAD,
+    PN_QUAD_ONE_FACE,
 	PN_PYRAMID,
 	PN_CUBE,
 } pn_primite_t;
@@ -43,6 +45,6 @@ void pn_free_render_object(pn_render_object_t* render_object);
 
 void pn_set_clear_color(pn_color_t color);
 
-void pnm_set_light_color(pn_color_t color);
+void pn_set_light_color(pn_color_t color);
 
 void pn_set_light_pos(v3 pos);

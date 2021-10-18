@@ -65,11 +65,54 @@ pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type) {
 			break;
 		}
 
+        case PN_TRIANGLE_ONE_FACE:
+            vertices = (pn_vertex_t[]) {
+				{{-1.0f, -1.0f, 0.0f}, {0,0,-1}, {0.0f, 0.0f}},
+				{{ 0.0f,  1.0f, 0.0f}, {0,0,-1}, {0.5f, 1.0f}},
+				{{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}},
+            };
+
+            vertex_count = 3;
+
+            break;
+
+		case PN_QUAD_ONE_FACE: {
+			vertices = (pn_vertex_t[]) {
+                {{-1.0f, -1.0f, 0.0f}, {0,0,-1}, {0.0f, 0.0f}},
+                {{-1.0f,  1.0f, 0.0f}, {0,0,-1}, {0.0f, 1.0f}},
+                {{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}},
+                    
+                {{-1.0f,  1.0f, 0.0f}, {0,0,-1}, {0.0f, 1.0f}},
+                {{ 1.0f,  1.0f, 0.0f}, {0,0,-1}, {1.0f, 1.0f}},
+                {{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}}
+            };
+            
+			vertex_count = 6;
+
+			break;
+		}
+
 		case PN_QUAD: {
 			vertices = (pn_vertex_t[]) {
-			};
-
-			vertex_count = 4;
+                {{-1.0f, -1.0f, 0.0f}, {0,0,-1}, {0.0f, 0.0f}},
+                {{-1.0f,  1.0f, 0.0f}, {0,0,-1}, {0.0f, 1.0f}},
+                {{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}},
+                    
+                {{-1.0f,  1.0f, 0.0f}, {0,0,-1}, {0.0f, 1.0f}},
+                {{ 1.0f,  1.0f, 0.0f}, {0,0,-1}, {1.0f, 1.0f}},
+                {{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}},
+            
+                
+                {{ 1.0f, -1.0f, 0.0f}, {0,0,1}, {1.0f, 0.0f}},
+                {{ 1.0f,  1.0f, 0.0f}, {0,0,1}, {1.0f, 1.0f}},
+                {{-1.0f,  1.0f, 0.0f}, {0,0,1}, {0.0f, 1.0f}},
+                {{ 1.0f, -1.0f, 0.0f}, {0,0,1}, {1.0f, 0.0f}},
+                {{-1.0f,  1.0f, 0.0f}, {0,0,1}, {0.0f, 1.0f}},
+                {{-1.0f, -1.0f, 0.0f}, {0,0,1}, {0.0f, 0.0f}},
+                    
+            };
+            
+			vertex_count = 12;
 
 			break;
 		}
@@ -155,7 +198,7 @@ void pn_set_light_pos(v3 pos) {
 	pn_unbind_shader_program();
 }
 
-void pnm_set_light_color(pn_color_t color) {
+void pn_set_light_color(pn_color_t color) {
 	pn_bind_shader_program(__pn_default_shader_program);
 		glUniform3fv(__pn_default_shader_program->m_uniforms[UNI_LIGHT_COLOR], 1, (v3){PN_RGB_F32(color)});
 	pn_unbind_shader_program();

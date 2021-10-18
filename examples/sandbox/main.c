@@ -1,4 +1,5 @@
 #include "pn/pn.h"
+#include <pn/pn_texture.h>
 
 #define MOVE_SPEED 10
 
@@ -11,13 +12,14 @@ int main(int argc, const char* argv[]){
     pn_enable_mouse_camera_movement();
 	pn_lock_mouse();
 	
-    pn_render_object_t* obj = pn_create_primitive_render_object(PN_TRIANGLE);
+    pn_render_object_t* obj = pn_create_primitive_render_object(PN_QUAD);
 	obj->m_color = (pn_color_t){100, 100, 100, 255};
 
 	pn_render_object_t* light = pn_create_primitive_render_object(PN_TRIANGLE);
 	light->m_color = (pn_color_t){0, 255, 0, 255};
 	light->m_use_light = false;
 
+    pn_texture_t* texture = pn_create_texture("res/bricks.jpeg");
 
 	f32 counter=0.0f;
 	f32* move_dir;
@@ -70,7 +72,7 @@ int main(int argc, const char* argv[]){
 					pn_v3_mult_each(obj->m_transform.m_pos, 3.5);
 
 					// Render the render object.
-					pn_render_render_object(obj, 0, 0);
+					pn_render_render_object(obj, 0, texture);
 				}
 			}
 		}
@@ -87,6 +89,7 @@ int main(int argc, const char* argv[]){
 	// You need to free each object created with pn_create_render_object or pn_create_primitive_render_object.
 	pn_free_render_object(obj);
 	pn_free_render_object(light);
+    pn_free_texture(texture);
 
 	// This function closes the window and cleans up the memory allocated by protein.
 	pn_exit();

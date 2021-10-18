@@ -106,7 +106,7 @@ void pn_init_default_shaders() {
 
 	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
 
-	pnm_set_light_color((pn_color_t){255, 255, 255, 255});
+	pn_set_light_color((pn_color_t){255, 255, 255, 255});
 	pn_set_light_pos((v3){0, 0, 0});
 }
 
