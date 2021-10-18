@@ -6,6 +6,8 @@
 typedef f32 v3[3];
 typedef f32 v2[2];
 
+#define PN_DEG_TO_RAD(x) x * (PN_PI / 180.0f)
+
 // TODO: Delete cglm when all of the important functions in pn_math are complete.
 
 f32 pn_v2_get_magnitude(v2 vec);

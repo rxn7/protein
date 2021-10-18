@@ -44,9 +44,7 @@ pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_co
 
 pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type) {
 	pn_vertex_t* vertices;
-	u32* indices;
-	u32 vertex_count;
-	u32 index_count;
+    u32 vertex_count;
 
 	switch(type){
 		case PN_TRIANGLE: {
@@ -60,7 +58,7 @@ pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type) {
 				{{-1.0f, -1.0f, 0.0f}, {0,0,1}, {1.0f, 0.0f}},
 			};
 
-			vertex_count = 6;
+            vertex_count = 6;
 
 			break;
 		}
@@ -86,9 +84,9 @@ pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type) {
                 {{ 1.0f,  1.0f, 0.0f}, {0,0,-1}, {1.0f, 1.0f}},
                 {{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}}
             };
-            
-			vertex_count = 6;
 
+            vertex_count = 6;
+            
 			break;
 		}
 
@@ -102,38 +100,33 @@ pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type) {
                 {{ 1.0f,  1.0f, 0.0f}, {0,0,-1}, {1.0f, 1.0f}},
                 {{ 1.0f, -1.0f, 0.0f}, {0,0,-1}, {1.0f, 0.0f}},
             
-                
                 {{ 1.0f, -1.0f, 0.0f}, {0,0,1}, {1.0f, 0.0f}},
                 {{ 1.0f,  1.0f, 0.0f}, {0,0,1}, {1.0f, 1.0f}},
                 {{-1.0f,  1.0f, 0.0f}, {0,0,1}, {0.0f, 1.0f}},
+         
                 {{ 1.0f, -1.0f, 0.0f}, {0,0,1}, {1.0f, 0.0f}},
                 {{-1.0f,  1.0f, 0.0f}, {0,0,1}, {0.0f, 1.0f}},
                 {{-1.0f, -1.0f, 0.0f}, {0,0,1}, {0.0f, 0.0f}},
-                    
             };
-            
-			vertex_count = 12;
 
+            vertex_count = 12;
+            
 			break;
 		}
+
+        case PN_CUBE: {
+            vertices = (pn_vertex_t[]) {
+            };
+
+            break;
+        }
 
 		case PN_PYRAMID: {
 			vertices = (pn_vertex_t[]) {
 			};
 
-			vertex_count = 5;
-
 			break;
 		}
-
-        case PN_CUBE: {
-			vertices = (pn_vertex_t[]) {
-            };
-
-			vertex_count = 36;
-
-            break;
-        }
 
 		default:
 			pn_error("Unknown primitive: %u", type);

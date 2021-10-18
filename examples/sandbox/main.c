@@ -12,14 +12,16 @@ int main(int argc, const char* argv[]){
     pn_enable_mouse_camera_movement();
 	pn_lock_mouse();
 	
-    pn_render_object_t* obj = pn_create_primitive_render_object(PN_QUAD);
-	obj->m_color = (pn_color_t){100, 100, 100, 255};
+    pn_render_object_t* floor = pn_create_primitive_render_object(PN_QUAD_ONE_FACE);
+	floor->m_transform.m_scale[0] = 10;
+	floor->m_transform.m_scale[1] = 10;
+    floor->m_transform.m_pos[1] = -3;
+    floor->m_transform.m_rot[0] = PN_DEG_TO_RAD(90);
+    floor->m_color = (pn_color_t){100, 100, 100, 255};
 
-	pn_render_object_t* light = pn_create_primitive_render_object(PN_TRIANGLE);
+	pn_render_object_t* light = pn_create_primitive_render_object(PN_QUAD);
 	light->m_color = (pn_color_t){0, 255, 0, 255};
 	light->m_use_light = false;
-
-    pn_texture_t* texture = pn_create_texture("res/bricks.jpeg");
 
 	f32 counter=0.0f;
 	f32* move_dir;
@@ -28,8 +30,6 @@ int main(int argc, const char* argv[]){
 
 	// Game loop
 	while(pn_should_run()){
-		// You need to call this at the start of every frame.
-		// This function clears the buffers, calculates the time delta between frames and poll the events. 
 		pn_start_frame();
 
 		forward = (v3){ __pn_cam_instance->m_forward[0], 0, __pn_cam_instance->m_forward[2] };
@@ -55,41 +55,22 @@ int main(int argc, const char* argv[]){
 		const static int MAX = 20;
 		const static int HALF = MAX/2;
 
-		obj->m_transform.m_rot[1] = counter;
-
 		light->m_transform.m_pos[0] = sinf(counter * 20) * 5;
-		light->m_transform.m_pos[1] = cosf(counter * 20) * 5;
 		light->m_transform.m_pos[2] = cosf(counter * 20) * 5;
 
 		pn_set_light_pos(light->m_transform.m_pos);
 
-		// Render the object multiple times in each direction.
-		for(int x=-HALF; x<HALF; x++){
-			for(int y=-HALF; y<HALF; y++){
-				for(int z=-HALF; z<HALF; z++){
-					// Set the obj's position.
-					pn_v3_set(obj->m_transform.m_pos, (v3){x,y,z});
-					pn_v3_mult_each(obj->m_transform.m_pos, 3.5);
-
-					// Render the render object.
-					pn_render_render_object(obj, 0, texture);
-				}
-			}
-		}
-
+		pn_render_render_object(floor, 0, 0);
 		pn_render_render_object(light, 0, 0);
 
-		// You need to call this at the end of every frame.
-		// This function swaps the screen buffer.
 		pn_end_frame();
 
 		counter += __pn_delta_time / 10;
 	}
 
 	// You need to free each object created with pn_create_render_object or pn_create_primitive_render_object.
-	pn_free_render_object(obj);
+	pn_free_render_object(floor);
 	pn_free_render_object(light);
-    pn_free_texture(texture);
 
 	// This function closes the window and cleans up the memory allocated by protein.
 	pn_exit();
