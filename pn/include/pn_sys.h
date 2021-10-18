@@ -30,7 +30,7 @@
 	#include <sys/resource.h>
 
 	// NOTE: Tested on Arch Linux, Kernel: 5.14.30-arch1-1.
-	void pn_sys_print_memory_usage();
+	void pn_sys_print_memory_usage(void);
 #endif
 
 
@@ -39,5 +39,5 @@
 	#include <windows.h>
 
 	// TODO: Finish this function. 
-	void pn_sys_print_memory_usage();
+	void pn_sys_print_memory_usage(void);
 #endif

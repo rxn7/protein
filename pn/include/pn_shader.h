@@ -22,10 +22,10 @@ typedef struct {
 	u32 m_uniforms[UNI_COUNT];
 } pn_shader_program_t;
 
-void pn_init_default_shaders();
+void pn_init_default_shaders(void);
 
 pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* frag_src);
 void pn_free_shader_program(pn_shader_program_t* program);
 
 void pn_bind_shader_program(pn_shader_program_t* program);
-void pn_unbind_shader_program();
+void pn_unbind_shader_program(void);

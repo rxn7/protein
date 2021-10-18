@@ -5,19 +5,19 @@ bool pn_is_key_pressed(pn_key_t key) {
 	return glfwGetKey(__pn_window_instance->m_glfw_window, key) == GLFW_PRESS;	
 }
 
-void pn_lock_mouse() {
+void pn_lock_mouse(void) {
 	glfwSetInputMode(__pn_window_instance->m_glfw_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
-void pn_unlock_mouse() {
+void pn_unlock_mouse(void) {
 	glfwSetInputMode(__pn_window_instance->m_glfw_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void pn_enable_mouse_camera_movement() {
+void pn_enable_mouse_camera_movement(void) {
 	__pn_camera_mouse_movement = true;
 }
 
-void pn_disable_mouse_camera_movement() {
+void pn_disable_mouse_camera_movement(void) {
 	__pn_camera_mouse_movement = false;
 }
 

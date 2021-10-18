@@ -166,7 +166,7 @@ void pn_bind_shader_program(pn_shader_program_t* program) {
 	}
 }
 
-void pn_unbind_shader_program() {
+void pn_unbind_shader_program(void) {
 	glUseProgram(0);
 }
 

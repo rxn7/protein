@@ -20,7 +20,7 @@ pn_camera_t* pn_create_camera(vec3 pos, f32 fov, f32 znear, f32 zfar) {
 	return camera;
 }
 
-void pn_update_camera() {
+void pn_update_camera(void) {
 	if(!__pn_camera_update_queued) return;
 
 	__pn_camera_update_queued = false;

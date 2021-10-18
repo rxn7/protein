@@ -9,7 +9,7 @@
 #include "pn_shader.h"
 #include <cglm/cglm.h>
 
-static void pn_set_glfw_hints() {
+static void pn_set_glfw_hints(void) {
 	glfwDefaultWindowHints();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -17,12 +17,12 @@ static void pn_set_glfw_hints() {
 	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
 }
 
-static void pn_set_glfw_callbacks() {
+static void pn_set_glfw_callbacks(void) {
 	glfwSetFramebufferSizeCallback(__pn_window_instance->m_glfw_window, pn_glfw_resize_callback);
 	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, pn_glfw_key_callback);
 }
 
-static bool pn_init_glew() {
+static bool pn_init_glew(void) {
 	int result = glewInit();
 	if(result != GLEW_OK) {
 		pn_error("Failed to initialize GLEW: %s", glewGetErrorString(result));
@@ -34,7 +34,7 @@ static bool pn_init_glew() {
 	return true;
 }
 
-static bool pn_init_glfw() {
+static bool pn_init_glfw(void) {
 	glfwSetErrorCallback(pn_glfw_error_callback);
 
 	if(glfwInit() != GLFW_TRUE) {
@@ -46,7 +46,7 @@ static bool pn_init_glfw() {
 	return true;
 }
 
-static void pn_init_opengl() {
+static void pn_init_opengl(void) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	// glDepthFunc(GL_LESS);
@@ -60,7 +60,7 @@ static void pn_init_opengl() {
 	pn_log("Successfully initialized OpenGL!");
 }
 
-static bool pn_pre_init() {
+static bool pn_pre_init(void) {
 	if(__pn_pre_inited) return true;
 
 	if(!pn_init_glfw()) return false;
@@ -73,7 +73,7 @@ static bool pn_pre_init() {
 	return true;
 }
 
-static bool pn_post_init() {
+static bool pn_post_init(void) {
 	if(!__pn_window_instance){
 		pn_error("Failed to do post_init: Window Instance is 0!");
 		__pn_should_run = false;

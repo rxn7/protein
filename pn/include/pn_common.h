@@ -26,5 +26,3 @@ typedef int8_t   i8;
 typedef float f32;
 typedef double f64;
 typedef long double f96;
-
-typedef bool b1; // This may be the stupidiest thing i ever seen but who cares

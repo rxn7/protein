@@ -3,17 +3,17 @@
 #include "pn_vars.h"
 #include "pn_init.h"
 
-bool pn_should_run() { 
+bool pn_should_run(void) { 
 	return __pn_should_run && !glfwWindowShouldClose(__pn_window_instance->m_glfw_window);
 }
 
-static void pn_update_delta_time() {
+static void pn_update_delta_time(void) {
 	f32 current_frame = glfwGetTime();
 	__pn_delta_time = current_frame - __pn_last_frame;
 	__pn_last_frame = current_frame;
 }
 
-void pn_exit() {
+void pn_exit(void) {
 	pn_free_window(__pn_window_instance);
 	glfwTerminate();
 
@@ -22,7 +22,7 @@ void pn_exit() {
     pn_log("Exiting...");
 }
 
-void pn_start_frame() {
+void pn_start_frame(void) {
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -30,6 +30,6 @@ void pn_start_frame() {
 	pn_update_input();
 }
 
-void pn_end_frame() {
+void pn_end_frame(void) {
 	glfwSwapBuffers(__pn_window_instance->m_glfw_window);
 }
