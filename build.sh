@@ -1,4 +1,7 @@
-cd pn
+#!/bin/bash
+
+./insertshaders.sh
+cd pn 
 make
 
 sudo cp ./bin/linux/libprotein.so /usr/lib -r
@@ -7,3 +10,13 @@ sudo cp ./bin/linux/libprotein.so /usr/lib -r
 sudo cp ./include/* /usr/include/pn -r
 
 cd ..
+
+
+if [ $# -eq 0 ]
+	then
+		exit
+else
+	cd examples/$1
+	./run.sh
+	cd ../..
+fi

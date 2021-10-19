@@ -1,6 +1,8 @@
 #include "pn_shader.h"
 #include "pn_log.h"
+#include "pn_render.h"
 #include "pn_vars.h"
+#include "pn_default_shaders.h"
 
 static void pn_compile_shader(GLenum type, u32* id, const char* src) {
 	*id = glCreateShader(type);
@@ -20,29 +22,10 @@ void pn_init_default_shaders() {
 	// If default shader already exists, return.
 	if(__pn_default_shader_program) return;
 
-	const char* default_vert_shader = 	"#version 330 core\n"
-										"layout (location = 0) in vec3 a_pos;\n"
-										"layout (location = 1) in vec2 a_uv;\n"
-										"uniform mat4 u_model;\n"
-										"uniform mat4 u_view;\n"
-										"uniform mat4 u_projection;\n"
-										"out vec2 v_uv;\n"
-										"void main() {\n"
-										"\tgl_Position = u_projection * u_view * u_model * vec4(a_pos, 1.0);\n"
-										"\tv_uv = a_uv;\n"
-										"}";
+	__pn_default_shader_program = pn_create_shader_program(__pn_shaded_vert, __pn_shaded_frag);
 
-	const char* default_frag_shader =	"#version 330 core\n"
-										"uniform vec4 u_color;\n"
-										"uniform sampler2D u_texture;\n"
-										"out vec4 f_color;\n"
-										"in vec2 v_uv;\n"
-										"void main() {\n"
-										"\tvec4 tex_color = texture(u_texture, v_uv);\n"
-										"\tf_color = tex_color;\n"
-										"}";
-
-	__pn_default_shader_program = pn_create_shader_program(default_vert_shader, default_frag_shader);
+	pn_set_light_color((pn_color_t){255, 255, 255, 255});
+	pn_set_light_pos((v3){0, 0, 0});
 }
 
 pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* frag_src) {
@@ -80,6 +63,11 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	program->m_uniforms[UNI_VIEW] = glGetUniformLocation(program->m_id, "u_view");
 	program->m_uniforms[UNI_PROJECTION] = glGetUniformLocation(program->m_id, "u_projection");
 	program->m_uniforms[UNI_COLOR] = glGetUniformLocation(program->m_id, "u_color");
+	program->m_uniforms[UNI_HAS_TEXTURE] = glGetUniformLocation(program->m_id, "u_has_texture");
+	program->m_uniforms[UNI_LIGHT_COLOR] = glGetUniformLocation(program->m_id, "u_light_color");
+	program->m_uniforms[UNI_LIGHT_POS] = glGetUniformLocation(program->m_id, "u_light_pos");
+	program->m_uniforms[UNI_CAMERA_POS] = glGetUniformLocation(program->m_id, "u_camera_pos");
+	program->m_uniforms[UNI_USE_LIGHT] = glGetUniformLocation(program->m_id, "u_use_light");
 
 	// Delete the shaders.
 	glDeleteShader(program->m_vert_shader);
@@ -91,12 +79,12 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 void pn_bind_shader_program(pn_shader_program_t* program) {
 	if(program) {
 		glUseProgram(program->m_id);
-	}else {
+	} else {
 		pn_error("Failed to bind shader program! Shader program doesn't exist!");
 	}
 }
 
-void pn_unbind_shader_program() {
+void pn_unbind_shader_program(void) {
 	glUseProgram(0);
 }
 

@@ -14,8 +14,8 @@
 #include "pn_log.h"
 #include "pn_vars.h"
 
-bool pn_should_run();
-void pn_exit();
+bool pn_should_run(void);
+void pn_exit(void);
 
-void pn_start_frame();
-void pn_end_frame();
+void pn_start_frame(void);
+void pn_end_frame(void);

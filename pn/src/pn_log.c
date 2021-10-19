@@ -12,7 +12,7 @@
     va_end(args);
 
 #define PN_PRINT_ARGS(type)\
-    printf("[" type "]");\
+    printf("[" type "] ");\
     vprintf(format, args);\
     printf("\n");
  

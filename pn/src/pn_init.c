@@ -1,5 +1,6 @@
 #include "pn_init.h"
 #include "pn_vars.h"
+#include "pn_window.h"
 #include "pn_callbacks.h"
 #include "pn_common.h"
 #include "pn_log.h"
@@ -8,81 +9,104 @@
 #include "pn_shader.h"
 #include <cglm/cglm.h>
 
-bool pn_init() {
-	if(!pn_preinit()) return false;
+static void pn_set_glfw_hints(void) {
+	glfwDefaultWindowHints();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
+}
 
-	__pn_should_run = true;
+static void pn_set_glfw_callbacks(void) {
+	glfwSetFramebufferSizeCallback(__pn_window_instance->m_glfw_window, pn_glfw_resize_callback);
+	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, pn_glfw_key_callback);
+}
 
+static bool pn_init_glew(void) {
+	int result = glewInit();
+	if(result != GLEW_OK) {
+		pn_error("Failed to initialize GLEW: %s", glewGetErrorString(result));
+		__pn_should_run = false;
+		return false;
+	}
+
+	pn_log("Successfully initialized GLEW!");
 	return true;
 }
 
-bool pn_preinit() {
-	if(__pn_pre_inited) return true;
-
+static bool pn_init_glfw(void) {
 	glfwSetErrorCallback(pn_glfw_error_callback);
 
-	// Initialize the GLFW.
 	if(glfwInit() != GLFW_TRUE) {
 		pn_error("Failed to initialize GLFW!");
 		return false;
 	}
 
 	pn_log("Successfully initialized GLFW!");
-	
-	// GLFW Window hints.
-	glfwDefaultWindowHints();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // We will make the window visible at the end of postinit.
-
-	__pn_pre_inited = true;
-
 	return true;
 }
 
-bool pn_postinit() {
-	// Check if the window instance exists.
-	if(!__pn_window_instance){
-		pn_error("Failed to post init: Window Instance is 0!");
-		
-		__pn_should_run = false;
-		return false;
-	}
-
-	// Set the GLFW Callbacks.
-	glfwSetFramebufferSizeCallback(__pn_window_instance->m_glfw_window, pn_glfw_resize_callback);
-	glfwSetKeyCallback(__pn_window_instance->m_glfw_window, pn_glfw_key_callback);
-
-	// Make the context current for the window instance.
-	glfwMakeContextCurrent(__pn_window_instance->m_glfw_window);
-
-	// Initialize the GLEW.
-	int glew_result = glewInit();
-	if(glew_result != GLEW_OK) {
-		pn_error("Failed to initialize GLEW: %s", glewGetErrorString(glew_result));
-		__pn_should_run = false;
-		return false;
-	}
-
-	// OpenGL Settings.
+static void pn_init_opengl(void) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
+	// glDepthFunc(GL_LESS);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// glEnable(GL_BLEND);
+	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+
+	pn_log("Successfully initialized OpenGL!");
+}
+
+static bool pn_pre_init(void) {
+	if(__pn_pre_inited) return true;
+
+	if(!pn_init_glfw()) return false;
+	pn_set_glfw_hints();
+
+	__pn_camera_update_queued = true;
+	__pn_pre_inited = true;
+
+	pn_log("Successfully done pre_init!");
+	return true;
+}
+
+static bool pn_post_init(void) {
+	if(!__pn_window_instance){
+		pn_error("Failed to do post_init: Window Instance is 0!");
+		__pn_should_run = false;
+		return false;
+	}
+
+	glfwMakeContextCurrent(__pn_window_instance->m_glfw_window);
+	pn_set_glfw_callbacks();
+	if(glfwRawMouseMotionSupported()) glfwSetInputMode(__pn_window_instance->m_glfw_window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+
+	if(!pn_init_glew())   return false;
+ 	pn_init_opengl();
+
+	// Enable raw mouse motion if supported.
+	if(glfwRawMouseMotionSupported()) glfwSetInputMode(__pn_window_instance->m_glfw_window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 
 	pn_create_camera((vec3){0, 0, -3.f}, 70, 0.01f, 1000.0f);
 	pn_update_viewport();
 
 	pn_init_default_shaders();
+
 	glfwShowWindow(__pn_window_instance->m_glfw_window);
 
-	pn_log("Successfully finished post-init!");
+	pn_log("Successfully done post_init!");
 
+	return true;
+}
+
+bool pn_init(const char* title, u32 width, u32 height) {
+	if(!pn_pre_init()) 							return false;
+	if(!pn_create_window(title, width, height)) return false;
+	if(!pn_post_init()) 							return false;
+
+	__pn_should_run = true;
 	return true;
 }
