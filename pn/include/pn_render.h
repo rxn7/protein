@@ -35,6 +35,26 @@ typedef struct {
 	pn_color_t m_color;
 } pn_render_object_t;
 
+typedef struct {
+    pn_color_t m_ambient;
+    pn_color_t m_diffuse;
+    pn_color_t m_specular;
+} pn_phong_t;
+
+typedef struct {
+    v3 m_dir;
+    pn_phong_t m_phong;
+} pn_directional_light_t;
+
+typedef struct {
+    v3 m_pos;
+
+    f32 m_constant;
+    f32 m_linear;
+    f32 m_quadratic;
+
+    pn_phong_t m_phong;
+} pn_point_light_t;
 
 pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_count);
 pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type);
