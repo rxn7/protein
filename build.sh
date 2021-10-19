@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./moveshaders.sh
+./insertshaders.sh
 cd pn 
 make
 
