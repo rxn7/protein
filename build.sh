@@ -1,5 +1,6 @@
 #!/bin/bash
 
+./moveshaders.sh
 cd pn 
 make
 

@@ -22,7 +22,7 @@ void pn_init_default_shaders() {
 	// If default shader already exists, return.
 	if(__pn_default_shader_program) return;
 
-	__pn_default_shader_program = pn_create_shader_program(__pn_shaded_vert_shader, __pn_shaded_frag_shader);
+	__pn_default_shader_program = pn_create_shader_program(__pn_shaded_vert, __pn_shaded_frag);
 
 	pn_set_light_color((pn_color_t){255, 255, 255, 255});
 	pn_set_light_pos((v3){0, 0, 0});

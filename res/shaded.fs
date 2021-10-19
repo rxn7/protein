@@ -1,4 +1,4 @@
-#version 330 core								
+#version 330 core
 
 uniform vec3 u_color;
 uniform bool u_has_texture;
@@ -23,7 +23,7 @@ void main() {
 	if(u_use_light) {
 		// Ambient.
 		float ambient_strength = 0.1;
-		vec3 ambient = ambient_strength * u_light_color
+		vec3 ambient = ambient_strength * u_light_color;
 		
 		// Diffuse.
 		vec3 norm = normalize(v_normal);
@@ -47,6 +47,6 @@ void main() {
 		result = (ambient + diffuse + specular) * object_color * attenuation;
 	} else {
 		result = object_color;
-	
+	}
 	f_color = vec4(result, 1.0);
 };
