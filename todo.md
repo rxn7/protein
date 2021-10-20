@@ -1,14 +1,16 @@
 # TODO
 
 ## Working On
-* Windows Support / OS Independence
 * Replce cglm with custom lib.
 
 ## For Later
 * .OBJ loading.
 * GUI
 
-# Done
+## Backburner
+* Windows Support / OS Independence
+
+## Done
 * Lighting.
 * Texture loading.
 * Primitives - cube, pyrmid, etc.
