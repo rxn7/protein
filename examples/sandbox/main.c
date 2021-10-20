@@ -1,5 +1,6 @@
 #include "pn/pn.h"
-#include <pn/pn_texture.h>
+#include "pn/pn_sys.h"
+#include "pn/pn_sys.h"
 
 #define MOVE_SPEED 10
 
@@ -16,7 +17,7 @@ int main(int argc, const char* argv[]){
 	floor->m_transform.m_scale[0] = 10;
 	floor->m_transform.m_scale[1] = 10;
     floor->m_transform.m_pos[1] = -3;
-    floor->m_transform.m_rot[0] = PN_DEG_TO_RAD(90);
+    floor->m_transform.m_rot[0] = 90;
     floor->m_color = (pn_color_t){100, 100, 100, 255};
 
 	pn_render_object_t* light = pn_create_primitive_render_object(PN_QUAD);
@@ -35,6 +36,8 @@ int main(int argc, const char* argv[]){
 		forward = (v3){ __pn_cam_instance->m_forward[0], 0, __pn_cam_instance->m_forward[2] };
 		right = (v3){ __pn_cam_instance->m_right[0], 0, __pn_cam_instance->m_right[2] };
 		move_dir = (v3) {0,0,0};
+
+        pn_sys_print_memory_usage();
 
 		// Front, left, right, back movement.
 		if(pn_is_key_pressed(PN_KEY_W)) pn_v3_add(move_dir, forward, move_dir);

@@ -4,6 +4,7 @@ else
     PN_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
 endif
 
+COMPILE_FLAGS = -std=c11 -fenable_fast_math
 HDRS = -I include -I src
 SRCS = -c src/*.c
 OBJS =  pn.o \
@@ -21,6 +22,7 @@ OBJS =  pn.o \
 		pn_transform.o \
 		pn_texture.o \
 		pn_sys.o
+ 		
 LIBS = -lGLEW -lglfw
 
 ifeq ($(PN_OS), Windows)

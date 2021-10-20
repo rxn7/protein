@@ -5,16 +5,11 @@
 * Replce cglm with custom lib.
 
 ## For Later
-* Lighting.
 * .OBJ loading.
 * GUI
-** Text rendering
-** Image rendering
-** Buttons
-** Text fields
-** Sound
 
 # Done
+* Lighting.
 * Texture loading.
 * Primitives - cube, pyrmid, etc.
 * Default shader

@@ -2,7 +2,7 @@
 #include "pn_log.h"
 
 #ifdef PN_OS_LINUX
-	void pn_sys_print_memory_usage() {
+	void pn_sys_print_memory_usage(void) {
 		struct rusage usage;
 		int error = getrusage(RUSAGE_SELF, &usage);
 
@@ -17,7 +17,7 @@
 
 #ifdef PN_OS_WINDOWS
 	// TODO: Finish this function. 
-	void pn_sys_print_memory_usage() {
-        pn_warning("pn_sys_print_memory_usage is not available for windows (yet).");        
-	}
+	void pn_sys_print_memory_usage(void) {
+        pn_warning("pn_sys_print_memory_usage is not available for windows (yet).");
+    }
 #endif
