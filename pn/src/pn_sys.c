@@ -14,10 +14,3 @@
 	}
 
 #endif
-
-#ifdef PN_OS_WINDOWS
-	// TODO: Finish this function. 
-	void pn_sys_print_memory_usage(void) {
-        pn_warning("pn_sys_print_memory_usage is not available for windows (yet).");
-    }
-#endif

@@ -34,12 +34,3 @@
     */
     void pn_sys_print_memory_usage(void);
 #endif
-
-
-// WINDOWS
-#ifdef PN_OS_WINDOWS
-	#include <windows.h>
-
-	// TODO: Finish this function. 
-	void pn_sys_print_memory_usage(void);
-#endif
