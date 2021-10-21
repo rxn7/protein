@@ -2,13 +2,13 @@
 #include "pn_log.h"
 #include "pn_vars.h"
 
-void pn_init_transform(pn_transform_t* transform) {
+void pn_transform_init(pn_transform_t* transform) {
 	glm_vec3_one(transform->m_scale);
 	glm_vec3_zero(transform->m_pos);
 	glm_vec3_zero(transform->m_rot);
 }
 
-void pn_calculate_transform_model(pn_transform_t* transform, mat4 dest) {
+void pn_transform_get_model(pn_transform_t* transform, mat4 dest) {
 	mat4 pos_matrix;
 	glm_mat4_identity(pos_matrix);
 	glm_translate(pos_matrix, transform->m_pos);

@@ -2,6 +2,7 @@
 
 ## Working On
 * Replce cglm with custom lib.
+* Replace glfw with glad. glfw causes many memory leaks.
 
 ## For Later
 * .OBJ loading.

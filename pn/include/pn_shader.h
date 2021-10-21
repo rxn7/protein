@@ -24,8 +24,8 @@ typedef struct {
 
 void pn_init_default_shaders(void);
 
-pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* frag_src);
-void pn_free_shader_program(pn_shader_program_t* program);
+pn_shader_program_t* pn_shader_program_create(const char* vert_src, const char* frag_src);
+void pn_shader_program_free(pn_shader_program_t* program);
 
-void pn_bind_shader_program(pn_shader_program_t* program);
-void pn_unbind_shader_program(void);
+void pn_shader_program_bind(pn_shader_program_t* program);
+void pn_shader_program_unbind(void);

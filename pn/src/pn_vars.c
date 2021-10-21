@@ -1,6 +1,6 @@
 #include "pn_vars.h"
 
-pn_shader_program_t* __pn_default_shader_program;
+pn_shader_program_t* __pn_default_shader_program = 0;
 pn_camera_t* __pn_cam_instance = 0;
 pn_window_t* __pn_window_instance = 0;
 bool __pn_pre_inited = false;

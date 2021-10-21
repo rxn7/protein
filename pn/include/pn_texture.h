@@ -8,7 +8,7 @@ typedef struct {
 	u32 m_bits_per_pixel;
 } pn_texture_t;
 
-pn_texture_t* pn_create_texture(const char* path);
-void pn_bind_texture(pn_texture_t* texture);
-void pn_unbind_texture();
-void pn_free_texture(pn_texture_t* texture);
+pn_texture_t* pn_texture_create(const char* path);
+void pn_texture_bind(pn_texture_t* texture);
+void pn_texture_unbind();
+void pn_texture_free(pn_texture_t* texture);

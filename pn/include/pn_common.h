@@ -6,9 +6,9 @@
 #include <stdint.h>
 #include <math.h>
 #include <cglm/cglm.h>
-const static vec3 PN_VEC3_ONE_X = {1, 0, 0};
-const static vec3 PN_VEC3_ONE_Y = {0, 1, 0};
-const static vec3 PN_VEC3_ONE_Z = {0, 0, 1};
+static const vec3 PN_V3_ONE_X = {1, 0, 0};
+static const vec3 PN_V3_ONE_Y = {0, 1, 0};
+static const vec3 PN_V3_ONE_Z = {0, 0, 1};
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

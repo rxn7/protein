@@ -1,0 +1,47 @@
+==48010== Memcheck, a memory error detector
+==48010== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==48010== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==48010== Command: ././examples/sandbox/sandbox
+==48010== Parent PID: 48009
+==48010== 
+==48010== 
+==48010== HEAP SUMMARY:
+==48010==     in use at exit: 350,405 bytes in 3,444 blocks
+==48010==   total heap usage: 180,149 allocs, 176,705 frees, 38,541,297 bytes allocated
+==48010== 
+==48010== 32 bytes in 1 blocks are definitely lost in loss record 450 of 2,364
+==48010==    at 0x48435FF: calloc (vg_replace_malloc.c:1117)
+==48010==    by 0x697E52B: ??? (in /usr/lib/dri/radeonsi_dri.so)
+==48010==    by 0x6A03EEC: amdgpu_winsys_create (in /usr/lib/dri/radeonsi_dri.so)
+==48010==    by 0x624D761: ??? (in /usr/lib/dri/radeonsi_dri.so)
+==48010==    by 0x624D0AC: ??? (in /usr/lib/dri/radeonsi_dri.so)
+==48010==    by 0x66F92DB: ??? (in /usr/lib/dri/radeonsi_dri.so)
+==48010==    by 0x5B816E5: ???
+==48010==    by 0x5B640C0: ???
+==48010==    by 0x5B648D3: ???
+==48010==    by 0x5B64C8E: ???
+==48010==    by 0x4C793B0: ??? (in /usr/lib/libglfw.so.3.3)
+==48010==    by 0x4C74A15: ??? (in /usr/lib/libglfw.so.3.3)
+==48010== 
+==48010== 917 bytes in 1 blocks are definitely lost in loss record 2,338 of 2,364
+==48010==    at 0x483E7C5: malloc (vg_replace_malloc.c:380)
+==48010==    by 0x5B63C58: ???
+==48010==    by 0x5B63D52: ???
+==48010==    by 0x4C18B89: glxewInit (in /usr/lib/libGLEW.so.2.2.0)
+==48010==    by 0x4C24231: glewInit (in /usr/lib/libGLEW.so.2.2.0)
+==48010==    by 0x48770B1: pn_init_glew (in /usr/lib/libprotein.so)
+==48010==    by 0x48772A3: pn_post_init (in /usr/lib/libprotein.so)
+==48010==    by 0x48773C0: pn_init (in /usr/lib/libprotein.so)
+==48010==    by 0x1092B9: main (in /home/rott/dev/c/protein/examples/sandbox/sandbox)
+==48010== 
+==48010== LEAK SUMMARY:
+==48010==    definitely lost: 949 bytes in 2 blocks
+==48010==    indirectly lost: 0 bytes in 0 blocks
+==48010==      possibly lost: 0 bytes in 0 blocks
+==48010==    still reachable: 349,400 bytes in 3,440 blocks
+==48010==         suppressed: 56 bytes in 2 blocks
+==48010== Reachable blocks (those to which a pointer was found) are not shown.
+==48010== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==48010== 
+==48010== For lists of detected and suppressed errors, rerun with: -s
+==48010== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

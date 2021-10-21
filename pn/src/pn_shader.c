@@ -4,7 +4,7 @@
 #include "pn_vars.h"
 #include "pn_default_shaders.h"
 
-static void pn_compile_shader(GLenum type, u32* id, const char* src) {
+static void pn_shader_compile(GLenum type, u32* id, const char* src) {
 	*id = glCreateShader(type);
 	glShaderSource(*id, 1, &src, NULL);
 	glCompileShader(*id);
@@ -22,19 +22,19 @@ void pn_init_default_shaders() {
 	// If default shader already exists, return.
 	if(__pn_default_shader_program) return;
 
-	__pn_default_shader_program = pn_create_shader_program(__pn_shaded_vert, __pn_shaded_frag);
+	__pn_default_shader_program = pn_shader_program_create(__pn_shaded_vert, __pn_shaded_frag);
 
-	pn_set_light_color((pn_color_t){255, 255, 255, 255});
-	pn_set_light_pos((v3){0, 0, 0});
+	pn_light_set_color((pn_color_t){255, 255, 255, 255});
+	pn_light_set_pos((v3){0, 0, 0});
 }
 
-pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* frag_src) {
+pn_shader_program_t* pn_shader_program_create(const char* vert_src, const char* frag_src) {
 	pn_shader_program_t* program = malloc(sizeof(pn_shader_program_t));
 	int success;
 	char info_log[512];
 
-	pn_compile_shader(GL_VERTEX_SHADER, &program->m_vert_shader, vert_src);
-	pn_compile_shader(GL_FRAGMENT_SHADER, &program->m_frag_shader, frag_src);
+	pn_shader_compile(GL_VERTEX_SHADER, &program->m_vert_shader, vert_src);
+	pn_shader_compile(GL_FRAGMENT_SHADER, &program->m_frag_shader, frag_src);
 
 	program->m_id = glCreateProgram();
 
@@ -76,7 +76,7 @@ pn_shader_program_t* pn_create_shader_program(const char* vert_src, const char* 
 	return program;
 }
 
-void pn_bind_shader_program(pn_shader_program_t* program) {
+void pn_shader_program_bind(pn_shader_program_t* program) {
 	if(program) {
 		glUseProgram(program->m_id);
 	} else {
@@ -84,11 +84,11 @@ void pn_bind_shader_program(pn_shader_program_t* program) {
 	}
 }
 
-void pn_unbind_shader_program(void) {
+void pn_shader_program_unbind(void) {
 	glUseProgram(0);
 }
 
-void pn_free_shader_program(pn_shader_program_t* program) {
+void pn_shader_program_free(pn_shader_program_t* program) {
 	glDeleteProgram(program->m_id);
 	free(program);
 }

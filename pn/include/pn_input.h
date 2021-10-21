@@ -126,14 +126,12 @@ typedef int pn_key_t;
 #define PN_KEY_RIGHT_SUPER        347
 #define PN_KEY_MENU               348
 
-
+void pn_input_update(void);
 bool pn_is_key_pressed(pn_key_t key);
-void pn_lock_mouse(void);
-void pn_unlock_mouse(void);
 
-void pn_enable_mouse_camera_movement();
-void pn_disable_mouse_camera_movement();
-
-void pn_set_mouse_sens(f32 sens);
-
-void pn_update_input(void);
+/* Mouse */
+void pn_mouse_lock(void);
+void pn_mouse_unlock(void);
+void pn_mouse_set_sens(f32 sens);
+void pn_camera_movement_enable();
+void pn_camera_movement_disable();

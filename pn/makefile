@@ -4,7 +4,7 @@ else
     PN_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
 endif
 
-COMPILE_FLAGS = -std=c11 -fenable_fast_math
+CFLAGS = -std=c11 -Wall -Wextra
 HDRS = -I include -I src
 SRCS = -c src/*.c
 OBJS =  pn.o \
@@ -36,7 +36,7 @@ endif
 all: compile output clean
 
 compile:
-	gcc -fpic $(HDRS) $(SRCS) -std=c11
+	gcc -fpic $(HDRS) $(SRCS) $(CFLAGS)
 
 output:
 	gcc -o $(TARGET) $(LIBS) $(OBJS) -shared -Wl,-soname,libprotein

@@ -14,7 +14,7 @@ typedef enum {
     PN_QUAD_ONE_FACE,
 	PN_PYRAMID,
 	PN_CUBE,
-} pn_primite_t;
+} pn_primitive_t;
 
 typedef struct {
 	v3 m_pos;
@@ -41,15 +41,14 @@ typedef struct {
     pn_color_t m_specular;
 } pn_phong_t;
 
-pn_render_object_t* pn_create_render_object(pn_vertex_t* vertices, u32 vertex_count);
-pn_render_object_t* pn_create_primitive_render_object(pn_primite_t type);
+pn_render_object_t* pn_render_object_create(pn_vertex_t* vertices, u32 vertex_count);
+pn_render_object_t* pn_primitive_render_object_create(pn_primitive_t type);
 
-void pn_render_render_object(pn_render_object_t* render_object, pn_shader_program_t* shader_program, pn_texture_t* texture);
-
-void pn_free_render_object(pn_render_object_t* render_object);
+void pn_render_object_draw(pn_render_object_t* render_object, pn_shader_program_t* shader_program, pn_texture_t* texture);
+void pn_render_object_free(pn_render_object_t* render_object);
 
 void pn_set_clear_color(pn_color_t color);
 
-void pn_set_light_color(pn_color_t color);
-
-void pn_set_light_pos(v3 pos);
+/* Light */
+void pn_light_set_color(pn_color_t color);
+void pn_light_set_pos(v3 pos);

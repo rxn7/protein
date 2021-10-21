@@ -14,10 +14,10 @@ static void pn_update_delta_time(void) {
 }
 
 void pn_exit(void) {
-	pn_free_window(__pn_window_instance);
+	pn_window_free(__pn_window_instance);
 	glfwTerminate();
 
-	pn_free_shader_program(__pn_default_shader_program);
+	pn_shader_program_free(__pn_default_shader_program);
 	
     pn_log("Exiting...");
 }
@@ -27,7 +27,7 @@ void pn_start_frame(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	pn_update_delta_time();
-	pn_update_input();
+	pn_input_update();
 }
 
 void pn_end_frame(void) {
