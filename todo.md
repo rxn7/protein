@@ -2,17 +2,19 @@
 
 ## Working On
 * Replce cglm with custom lib.
-* Replace glfw with glad. glfw causes many memory leaks.
 
 ## For Later
-* .OBJ loading.
+* Wavefront .obj loading.
 * GUI
+* Multiple-light support.
+* Directional light.
 
 ## Backburner
 * Windows Support / OS Independence
 
 ## Done
-* Lighting.
+* Changed from shared library to static library.
+* Basic Lighting.
 * Texture loading.
 * Primitives - cube, pyrmid, etc.
 * Default shader

@@ -22,8 +22,6 @@ OBJS =  pn.o \
 		pn_transform.o \
 		pn_texture.o \
 		pn_sys.o
- 		
-LIBS = -lGLEW -lglfw
 
 ifeq ($(PN_OS), Windows)
 	TARGET = bin/windows/protein.dll
@@ -39,7 +37,7 @@ compile:
 	gcc -fpic $(HDRS) $(SRCS) $(CFLAGS)
 
 output:
-	gcc -o $(TARGET) $(LIBS) $(OBJS) -shared -Wl,-soname,libprotein
+	ar rvs bin/linux/libprotein.a $(OBJS)
 
 clean:
 	rm *.o

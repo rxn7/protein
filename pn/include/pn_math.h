@@ -6,6 +6,10 @@
 typedef f32 v3[3];
 typedef f32 v2[2];
 
+static const v3 PN_V3_ONE_X = {1, 0, 0};
+static const v3 PN_V3_ONE_Y = {0, 1, 0};
+static const v3 PN_V3_ONE_Z = {0, 0, 1};
+
 #define PN_DEG_TO_RAD(x) x * (PN_PI / 180.0f)
 
 // TODO: Delete cglm when all of the important functions in pn_math are complete.

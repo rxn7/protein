@@ -115,13 +115,15 @@ pn_render_object_t* pn_primitive_render_object_create(pn_primitive_t type) {
 			break;
 		}
 
+		// TODO:
         case PN_CUBE: {
             vertices = (pn_vertex_t[]) {
             };
 
             break;
         }
-
+		
+		// TODO:
 		case PN_PYRAMID: {
 			vertices = (pn_vertex_t[]) {
 			};
