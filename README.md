@@ -1,8 +1,16 @@
-# protein
+# Protein
 Protein is a 3D framework based on modern OpenGL written in C.
 
-# windows support
-Currently I don't plan to support this shit.
+# Linking
+* Get a libprotein.a or compile it from source (see [Compiling]("#compiling"))
+* Link your program with ``` -lGLEW -lglfw -lGL ```
 
-# usage
-Docs are comming soon.
+
+# Docs
+Soon.
+
+# Development
+Soon.
+
+# Compiling
+Soon.
