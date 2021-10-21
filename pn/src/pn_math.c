@@ -1,5 +1,12 @@
 #include "pn_math.h"
 
+const v3 PN_V3_RIGHT	= { 1,  0,  0};
+const v3 PN_V3_LEFT 	= {-1,  0,  0};
+const v3 PN_V3_UP		= { 0,  1,  0};
+const v3 PN_V3_DOWN		= { 0, -1,  0};
+const v3 PN_V3_FRONT	= { 0,  0,  1};
+const v3 PN_V3_BACK		= { 0,  0, -1};
+
 void pn_v2_mult_each(v2 vec, float value) {
 	vec[0] *= value;
 	vec[1] *= value;

@@ -18,8 +18,8 @@ pn_camera_t* pn_camera_create(vec3 pos, f32 fov, f32 znear, f32 zfar) {
 	__pn_cam_instance = camera;
 
 	pn_v3_set(camera->m_pos, pos);
-	pn_v3_set(camera->m_forward, PN_V3_ONE_Z);
-	pn_v3_set(camera->m_up, PN_V3_ONE_Y);
+	pn_v3_set(camera->m_forward, PN_V3_FRONT);
+	pn_v3_set(camera->m_up, PN_V3_UP);
 
 	__pn_camera_update_queued = true;
 
@@ -44,7 +44,7 @@ void pn_camera_update(void) {
 	__pn_cam_instance->m_forward[2] = sinf(yaw_rad) * cosf(pitch_rad);
 
 	pn_v3_normalize(__pn_cam_instance->m_forward);
-	glm_vec3_cross(__pn_cam_instance->m_forward, __pn_cam_instance->m_up, __pn_cam_instance->m_right);
+	pn_v3_cross(__pn_cam_instance->m_forward, __pn_cam_instance->m_up, __pn_cam_instance->m_right);
 	pn_v3_normalize(__pn_cam_instance->m_right);
 
 	// Calculate the look direction.	

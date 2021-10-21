@@ -37,15 +37,12 @@ int main(int argc, const char* argv[]){
 		right = (v3){ __pn_cam_instance->m_right[0], 0, __pn_cam_instance->m_right[2] };
 		move_dir = (v3) {0,0,0};
 
-		// Front, left, right, back movement.
 		if(pn_is_key_pressed(PN_KEY_W)) pn_v3_add(move_dir, forward, move_dir);
 		if(pn_is_key_pressed(PN_KEY_S)) pn_v3_sub(move_dir, forward, move_dir);
 		if(pn_is_key_pressed(PN_KEY_A)) pn_v3_sub(move_dir, right, move_dir);
 		if(pn_is_key_pressed(PN_KEY_D)) pn_v3_add(move_dir, right, move_dir);
-
-		// Up, down movement.
-		if(pn_is_key_pressed(PN_KEY_SPACE)) pn_v3_add(move_dir, (v3){0,1,0}, move_dir);
-		if(pn_is_key_pressed(PN_KEY_LEFT_SHIFT)) pn_v3_add(move_dir, (v3){0,-1,0}, move_dir);
+		if(pn_is_key_pressed(PN_KEY_SPACE)) 	 pn_v3_add(move_dir, PN_V3_UP, move_dir);
+		if(pn_is_key_pressed(PN_KEY_LEFT_SHIFT)) pn_v3_add(move_dir, PN_V3_DOWN, move_dir);
 
 		pn_v3_normalize(move_dir);
 
@@ -69,11 +66,9 @@ int main(int argc, const char* argv[]){
 		counter += __pn_delta_time / 10;
 	}
 
-	// You need to free each object created with pn_create_render_object or pn_create_primitive_render_object.
 	pn_render_object_free(floor);
 	pn_render_object_free(light);
 
-	// This function closes the window and cleans up the memory allocated by protein.
 	pn_exit();
 
 	return 0;

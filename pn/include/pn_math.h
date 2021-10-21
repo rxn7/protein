@@ -6,9 +6,12 @@
 typedef f32 v3[3];
 typedef f32 v2[2];
 
-static const v3 PN_V3_ONE_X = {1, 0, 0};
-static const v3 PN_V3_ONE_Y = {0, 1, 0};
-static const v3 PN_V3_ONE_Z = {0, 0, 1};
+extern const v3 PN_V3_RIGHT;
+extern const v3 PN_V3_LEFT;
+extern const v3 PN_V3_UP;
+extern const v3 PN_V3_DOWN;
+extern const v3 PN_V3_FRONT;
+extern const v3 PN_V3_BACK;
 
 #define PN_DEG_TO_RAD(x) x * (PN_PI / 180.0f)
 
@@ -36,5 +39,4 @@ void pn_v3_add(v3 a, v3 b, v3 dest);
 void pn_v3_sub(v3 a, v3 b, v3 dest);
 
 void pn_v3_cross(v3 a, v3 b, v3 dest);
-
 void pn_v3_normal(v3 a, v3 b, v3 c, v3 dest);

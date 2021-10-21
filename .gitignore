@@ -1,1 +1,2 @@
-.vscode
+pn/bin/*
+valgrind-out.txt
