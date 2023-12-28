@@ -1,2 +1,5 @@
-pn/bin/*
-valgrind-out.txt
+./pn/bin/
+./valgrind-out.txt
+./examples/sandbox/sandbox
+./valgrind-out.txt
+./compile_flags.txt
